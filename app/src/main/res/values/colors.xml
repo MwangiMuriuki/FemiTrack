@@ -9,4 +9,8 @@
     <color name="colorPrimaryDark2">#c94189</color>
     <color name="colorAccent2">#FF4081</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorSilver">#C0C0C0</color>
+    <color name="colorTwitter">#55acee</color>
+    <color name="colorFacebook">#3b5998</color>
+    <color name="colorGoogle">#dd4b39</color>
 </resources>

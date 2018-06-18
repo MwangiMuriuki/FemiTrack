@@ -8,26 +8,26 @@
     tools:context="com.example.a001759.pregtrack.Login">
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="56dp"
+        android:layout_marginBottom="7dp"
         android:layout_marginEnd="14dp"
         android:layout_marginLeft="13dp"
         android:layout_marginRight="14dp"
         android:layout_marginStart="13dp"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="50dp"
         android:gravity="center_vertical|center_horizontal"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:layout_width="200dp"
-            android:layout_height="180dp"
-            android:layout_marginTop="100dp"
-            android:src="@drawable/login_image"/>
+            android:layout_height="160dp"
+            android:layout_marginTop="70dp"
+            android:src="@drawable/login_image" />
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -35,6 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:orientation="vertical"
+            android:padding="5dp"
             app:layout_constraintBottom_toTopOf="@+id/login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.481"
@@ -45,25 +46,38 @@
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:hint="Email"
-                android:textColorHint="@color/colorWhite"
-                android:padding="8dp"
                 android:layout_marginBottom="5dp"
                 android:background="@drawable/edit_text_background"
+                android:hint="Email"
                 android:inputType="textEmailAddress"
-                android:textColor="@color/colorWhite" />
+                android:padding="8dp"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorWhite" />
 
             <EditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:hint="Password"
-                android:textColorHint="@color/colorWhite"
-                android:padding="8dp"
                 android:background="@drawable/edit_text_background"
+                android:hint="Password"
                 android:inputType="textPassword"
-                android:textColor="@color/colorWhite" />
+                android:padding="8dp"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorWhite" />
         </LinearLayout>
+
+        <!--<TextView-->
+            <!--android:id="@+id/forgot_password"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:text="Forgot Password?"-->
+            <!--android:textAlignment="center"-->
+            <!--android:textColor="@color/colorWhite"-->
+            <!--android:textStyle="bold|italic"-->
+            <!--app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--app:layout_constraintEnd_toStartOf="@+id/create_account"-->
+            <!--app:layout_constraintStart_toStartOf="parent" />-->
 
         <Button
             android:id="@+id/login"
@@ -71,6 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
+            android:padding="8dp"
             android:background="@drawable/button_background"
             android:text="Sign In"
             android:textColor="@color/colorWhite" />
@@ -84,15 +99,14 @@
             android:text="OR SIGN IN WITH"
             android:textAlignment="center"
             android:textColor="@color/colorWhite"
-            android:textSize="14sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <LinearLayout
             android:id="@+id/alternativeLoginLayout"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="62dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
             android:gravity="center"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -105,24 +119,25 @@
                 android:id="@+id/facebook_sign_in"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:background="@drawable/rounded_button_facebook"
-                android:src="@drawable/facebook"
                 android:layout_margin="10dp"
-                android:scaleType="fitCenter"
                 android:adjustViewBounds="true"
+                android:background="@drawable/rounded_button_facebook"
+                android:contentDescription="Favicon"
                 android:padding="10dp"
-                android:contentDescription="Favicon" />
+                android:scaleType="fitCenter"
+                android:src="@drawable/facebook" />
+
             <ImageButton
                 android:id="@+id/twitter_sign_in"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_margin="10dp"
-                android:background="@drawable/rounded_button_twitter"
-                android:src="@drawable/twitter"
-                android:scaleType="fitCenter"
                 android:adjustViewBounds="true"
+                android:background="@drawable/rounded_button_twitter"
+                android:contentDescription="Favicon"
                 android:padding="10dp"
-                android:contentDescription="Favicon" />
+                android:scaleType="fitCenter"
+                android:src="@drawable/twitter" />
 
 
             <ImageButton
@@ -130,16 +145,31 @@
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_margin="10dp"
-                android:background="@drawable/rounded_button_google"
-                android:src="@drawable/google_plus"
-                android:scaleType="fitCenter"
                 android:adjustViewBounds="true"
+                android:background="@drawable/rounded_button_google"
+                android:contentDescription="Favicon"
                 android:padding="10dp"
-                android:contentDescription="Favicon" />
+                android:scaleType="fitCenter"
+                android:src="@drawable/google_plus" />
         </LinearLayout>
 
 
+        <!--<TextView-->
+            <!--android:id="@+id/create_account"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:layout_margin="5dp"-->
+            <!--android:text="Create new account"-->
+            <!--android:textAlignment="center"-->
+            <!--android:textColor="@color/colorWhite"-->
+            <!--android:textStyle="bold|italic"-->
+            <!--app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />-->
+
     </LinearLayout>
+
 
 
 </android.support.constraint.ConstraintLayout>

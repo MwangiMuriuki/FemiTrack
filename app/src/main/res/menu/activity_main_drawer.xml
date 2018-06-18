@@ -6,28 +6,29 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_home"
             android:title="Home" />
 
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Weekly Calendar" />
-
-        <item
             android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_calculator"
             android:title="Pregnancy Calculator" />
 
         <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/ic_calendar"
+            android:title="Weekly Calendar" />
+
+
+        <item
             android:id="@+id/nav_new"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_appointment"
             android:title="My Appointments" />
 
         <item
             android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Find a Hospital" />
+            android:icon="@drawable/ic_health_center"
+            android:title="Health Center" />
 
     </group>
 

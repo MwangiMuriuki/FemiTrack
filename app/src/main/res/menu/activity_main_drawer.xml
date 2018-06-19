@@ -5,30 +5,30 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_home"
             android:icon="@drawable/ic_home"
             android:title="Home" />
 
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_pregnancy_calculator"
             android:icon="@drawable/ic_calculator"
             android:title="Pregnancy Calculator" />
 
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_weekly_calendar"
             android:icon="@drawable/ic_calendar"
             android:title="Weekly Calendar" />
 
 
         <item
-            android:id="@+id/nav_new"
+            android:id="@+id/nav_appointments"
             android:icon="@drawable/ic_appointment"
             android:title="My Appointments" />
 
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_health_centers"
             android:icon="@drawable/ic_health_center"
-            android:title="Health Center" />
+            android:title="Health Centers" />
 
     </group>
 

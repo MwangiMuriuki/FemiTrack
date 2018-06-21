@@ -27,45 +27,200 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hi, please set your due date below:"
+            android:text="Hi, we would like to set your due date. Please pick one option below:"
             android:textColor="@color/colorBlack"
             android:textSize="16sp"
-            android:layout_margin="8dp"/>
-
-        <LinearLayout
+            android:layout_margin="5dp"/>
+        <RadioGroup
+            android:id="@+id/radioGroupOptions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginTop="5dp" >
 
-            <Button
-                android:id="@+id/pregnancy_calculator_date_picker"
-                android:layout_width="100dp"
-                android:layout_height="30dp"
-                android:text="Pick Date"
-                android:textColor="@color/colorWhite"
-                android:background="@drawable/button_background"
-                android:layout_margin="8dp"/>
-            <TextView
+            <RadioButton
+                android:id="@+id/radioButton1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=":"
+                android:text="Set your due date manually."
                 android:textColor="@color/colorBlack"
-                android:textSize="18sp"
-                android:textAlignment="center"
-                android:layout_gravity="center"/>
+                android:textSize="16sp"/>
 
-            <TextView
-                android:id="@+id/selected_date"
+            <RadioButton
+                android:id="@+id/radioButton2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Selected date goes here"
+                android:text="Calculate your due date."
                 android:textColor="@color/colorBlack"
-                android:textSize="16sp"
-                android:textAlignment="center"
-                android:layout_margin="8dp"
-                android:layout_gravity="center"/>
-        </LinearLayout>
-        
+                android:textSize="16sp"/>
+
+        </RadioGroup>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+
+            <LinearLayout
+                android:id="@+id/layoutSetDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="5dp"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DUE DATE PICKER"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textAlignment="center"
+                    android:layout_margin="8dp"
+                    android:layout_gravity="center"/>
+
+                <Button
+                    android:id="@+id/pregnancy_calculator_date_picker"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:text="Pick Date"
+                    android:textColor="@color/colorWhite"
+                    android:background="@drawable/button_background"
+                    android:layout_margin="8dp"
+                    android:layout_gravity="center"/>
+                <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text=":"-->
+                <!--android:textColor="@color/colorBlack"-->
+                <!--android:textSize="18sp"-->
+                <!--android:textAlignment="center"-->
+                <!--android:layout_gravity="center"/>-->
+
+                <TextView
+                    android:id="@+id/selected_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Selected date goes here"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16sp"
+                    android:textAlignment="center"
+                    android:layout_margin="8dp"
+                    android:layout_gravity="center"/>
+                <TextView
+                    android:id="@+id/months_pregnant_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Congratulations, you are ** weeks pregnant!"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16sp"
+                    android:textAlignment="center"
+                    android:layout_margin="8dp"
+                    android:layout_gravity="center"/>
+
+                <Button
+                    android:id="@+id/set_date_1"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:text="Save"
+                    android:textColor="@color/colorWhite"
+                    android:background="@drawable/button_background"
+                    android:layout_margin="8dp"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/layoutCalculateDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:id="@+id/title2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DUE DATE CALCULATOR"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textAlignment="center"
+                    android:layout_margin="8dp"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Please pick the date of your last menstrual period"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16sp"
+                    android:textAlignment="center"
+                    android:layout_margin="8dp"
+                    android:layout_gravity="center"/>
+
+                <Button
+                    android:id="@+id/pregnancy_calculator_date_picker2"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:text="Pick Date"
+                    android:textColor="@color/colorWhite"
+                    android:background="@drawable/button_background"
+                    android:layout_margin="8dp"
+                    android:layout_gravity="center"/>
+                <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text=":"-->
+                <!--android:textColor="@color/colorBlack"-->
+                <!--android:textSize="18sp"-->
+                <!--android:textAlignment="center"-->
+                <!--android:layout_gravity="center"/>-->
+
+                <TextView
+                    android:id="@+id/selected_date2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Selected date goes here"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16sp"
+                    android:textAlignment="center"
+                    android:layout_margin="8dp"
+                    android:layout_gravity="center"/>
+                <TextView
+                    android:id="@+id/months_pregnant_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Congratulations, you are ** weeks pregnant!"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16sp"
+                    android:textAlignment="center"
+                    android:layout_margin="8dp"
+                    android:layout_gravity="center"/>
+
+                <Button
+                    android:id="@+id/set_date_12"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:text="Save"
+                    android:textColor="@color/colorWhite"
+                    android:background="@drawable/button_background"
+                    android:layout_margin="8dp"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
 
 
     </LinearLayout>

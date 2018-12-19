@@ -1,6 +1,7 @@
 package com.example.a001759.pregtrack;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -124,6 +125,9 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_health_centers:
                 fragment = new HealthCenters();
                 break;
+            case R.id.nav_logout:
+                logout();
+                break;
 
         }
 
@@ -136,5 +140,12 @@ public class MainActivity extends AppCompatActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+    }
+
+    private void logout() {
+
+        Intent logout = new Intent(getApplication(),Login.class);
+        startActivity(logout);
+        finish();
     }
 }

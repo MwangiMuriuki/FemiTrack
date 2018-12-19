@@ -30,8 +30,6 @@
             android:textSize="22sp"
             android:textStyle="bold" />
 
-
-
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton

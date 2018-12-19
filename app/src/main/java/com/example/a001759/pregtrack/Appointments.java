@@ -1,6 +1,7 @@
 package com.example.a001759.pregtrack;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -34,8 +35,11 @@ public class Appointments extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Create new Appointment?", Snackbar.LENGTH_LONG)
-                        .setAction("Create", null).show();
+//                Snackbar.make(view, "Create new Appointment?", Snackbar.LENGTH_LONG)
+//                        .setAction("Create", null).show();
+
+                Intent intent = new Intent(getContext(), CreateAppointment.class);
+                startActivity(intent);
 
                 Toast.makeText(getContext(), "Creating a new Appointment", Toast.LENGTH_LONG).show();
             }

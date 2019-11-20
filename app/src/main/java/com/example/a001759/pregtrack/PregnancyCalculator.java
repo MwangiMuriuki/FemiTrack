@@ -13,12 +13,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
+import com.codetroopers.betterpickers.calendardatepicker.MonthAdapter;
 
 import java.util.Calendar;
 
@@ -33,18 +35,26 @@ public class PregnancyCalculator extends Fragment implements CalendarDatePickerD
     LinearLayout setDateLayout, calculateDateLayout;
     CardView cardView1, cardView2;
 
+    DatePicker datePicker;
+    Calendar calendar;
+    int day, month, year;
+
     private static final String FRAG_TAG_DATE_PICKER = "fragment_date_picker_name";
 
     public PregnancyCalculator() {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_pregnancy_calculator, container, false);
+
+        calendar = Calendar.getInstance();
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        month = calendar.get(Calendar.MONTH);
+        year = calendar.get(Calendar.YEAR);
 
         radioGroup = view.findViewById(R.id.radioGroupOptions);
         setDD = view.findViewById(R.id.radioButton1);
@@ -113,6 +123,10 @@ public class PregnancyCalculator extends Fragment implements CalendarDatePickerD
                 .setThemeDark()
                 .setCancelText("Cancel");
         sdd.show(getFragmentManager(), FRAG_TAG_DATE_PICKER );
+
+        MonthAdapter.CalendarDay selected = sdd.getSelectedDay();
+
+        Toast.makeText(getContext(), selected.toString(), Toast.LENGTH_SHORT).show();
 
     }
 

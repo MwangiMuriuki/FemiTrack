@@ -59,7 +59,8 @@
                 android:id="@+id/card1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp">
+                android:layout_marginTop="5dp"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:id="@+id/layoutSetDate"
@@ -138,7 +139,7 @@
                 android:id="@+id/card2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <LinearLayout
                     android:id="@+id/layoutCalculateDate"
@@ -162,7 +163,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Please pick the date of your last menstrual period: "
+                        android:text="Please pick the first day of your last menstrual period: "
                         android:textColor="@color/colorBlack"
                         android:textSize="16sp"
                         android:textAlignment="center"

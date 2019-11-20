@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "162251778178",
+    "firebase_url": "https://femitrack.firebaseio.com",
+    "project_id": "femitrack",
+    "storage_bucket": "femitrack.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:162251778178:android:abf778c23a4db9d1b0ec9b",
+        "android_client_info": {
+          "package_name": "com.example.a001759.pregtrack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "162251778178-m0g75kan39uaflt8dc2miuevlq9njkg7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.a001759.pregtrack",
+            "certificate_hash": "797964dfbac65346c782b06b953c18493091e260"
+          }
+        },
+        {
+          "client_id": "162251778178-grmsadpq45s49v17uum9i89gcb1ocn8o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATpr-xNpzNS58WPW9oia1czVUdl6jLJlU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "162251778178-grmsadpq45s49v17uum9i89gcb1ocn8o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,7 +1,9 @@
-package com.example.a001759.pregtrack;
+package com.example.a001759.pregtrack.activities;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.a001759.pregtrack.R;
 
 public class CreateAppointment extends AppCompatActivity {
 

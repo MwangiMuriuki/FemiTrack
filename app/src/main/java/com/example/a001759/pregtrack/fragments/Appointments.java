@@ -1,12 +1,15 @@
-package com.example.a001759.pregtrack;
+package com.example.a001759.pregtrack.fragments;
 
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
+import androidx.annotation.Nullable;
+
+import com.example.a001759.pregtrack.activities.CreateAppointment;
+import com.example.a001759.pregtrack.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

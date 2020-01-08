@@ -1,43 +1,52 @@
-package com.example.a001759.pregtrack;
+package com.example.a001759.pregtrack.fragments;
 
 
-import android.app.FragmentManager;
+import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
-import android.renderscript.Sampler;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.cardview.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CalendarView;
-import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
 import com.codetroopers.betterpickers.calendardatepicker.MonthAdapter;
+import com.example.a001759.pregtrack.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PregnancyCalculator extends Fragment implements CalendarDatePickerDialogFragment.OnDateSetListener {
+public class PregnancyCalculator extends Fragment{
     RadioGroup radioGroup;
     RadioButton setDD, calculateDD;
     Button dd_calculator, dd_selector;
     LinearLayout setDateLayout, calculateDateLayout;
     CardView cardView1, cardView2;
+    TextView selected, months;
 
     DatePicker datePicker;
+    DatePickerDialog datePickerDialog;
     Calendar calendar;
     int day, month, year;
+
+    public static final String[] MONTHS = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
     private static final String FRAG_TAG_DATE_PICKER = "fragment_date_picker_name";
 
@@ -65,6 +74,8 @@ public class PregnancyCalculator extends Fragment implements CalendarDatePickerD
         cardView2 = view.findViewById(R.id.card2);
         dd_calculator = view.findViewById(R.id.dd_calculator);
         dd_selector = view.findViewById(R.id.dd_selector);
+        selected = view.findViewById(R.id.selected_date);
+        months = view.findViewById(R.id.months_pregnant_1);
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -104,29 +115,42 @@ public class PregnancyCalculator extends Fragment implements CalendarDatePickerD
 
     private void selectDueDate()  {
 
-        CalendarDatePickerDialogFragment sdd = new CalendarDatePickerDialogFragment()
-                .setOnDateSetListener(PregnancyCalculator.this)
-                .setFirstDayOfWeek(Calendar.SUNDAY)
-                .setDoneText("Ok")
-                .setThemeDark()
-                .setCancelText("Cancel");
-        sdd.show(getFragmentManager(), FRAG_TAG_DATE_PICKER );
+        final Calendar c = Calendar.getInstance();
+        int mYear = c.get(Calendar.YEAR); // current year
+        int mMonth = c.get(Calendar.MONTH); // current month
+        int mDay = c.get(Calendar.DAY_OF_MONTH);
+
+        datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int sYear, int sMonth, int sDay) {
+
+                Toast.makeText(getContext(), sDay + "/" + MONTHS[sMonth] + "/" + sYear, Toast.LENGTH_LONG ).show();
+
+                selected.setText("Your Approximate Due Date is: " + sDay + "th " + MONTHS[sMonth] + " " + sYear);
+
+                /*ARITHMETIC TO ADD DATE*/
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String date = String.valueOf(sYear + sMonth + sDay);
+                try {
+                    c.setTime(sdf.parse(date));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                c.add(Calendar.MONTH, 9);
+                SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
+                String output = sdf1.format(c.getTime());
+
+                months.setText(output);
+
+            }
+        },mYear, mMonth, mDay);
+        datePickerDialog.show();
 
     }
 
-    public void calculateDueDate() {
-
-        CalendarDatePickerDialogFragment sdd = new CalendarDatePickerDialogFragment()
-                .setOnDateSetListener(PregnancyCalculator.this)
-                .setFirstDayOfWeek(Calendar.SUNDAY)
-                .setDoneText("Ok")
-                .setThemeDark()
-                .setCancelText("Cancel");
-        sdd.show(getFragmentManager(), FRAG_TAG_DATE_PICKER );
-
-        MonthAdapter.CalendarDay selected = sdd.getSelectedDay();
-
-        Toast.makeText(getContext(), selected.toString(), Toast.LENGTH_SHORT).show();
+    private void calculateDueDate() {
 
     }
 
@@ -137,13 +161,4 @@ public class PregnancyCalculator extends Fragment implements CalendarDatePickerD
         getActivity().setTitle("Pregnancy Calculator");
     }
 
-//    @Override
-//    public void onDateChanged() {
-//
-//    }
-
-    @Override
-    public void onDateSet(CalendarDatePickerDialogFragment dialog, int year, int monthOfYear, int dayOfMonth) {
-
-    }
 }

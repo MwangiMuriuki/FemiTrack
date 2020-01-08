@@ -1,22 +1,23 @@
-package com.example.a001759.pregtrack;
+package com.example.a001759.pregtrack.fragments;
 
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatDelegate;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.a001759.pregtrack.R;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class WeeklyCalendar extends Fragment {
+public class HealthCenters extends Fragment {
 
 
-    public WeeklyCalendar() {
+    public HealthCenters() {
         // Required empty public constructor
     }
 
@@ -25,15 +26,13 @@ public class WeeklyCalendar extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_weekly_calendar, container, false);
+        return inflater.inflate(R.layout.fragment_health_centers, container, false);
     }
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //you can set the title for your toolbar here for different fragments different titles
-        getActivity().setTitle("Weekly Calendar");
+        getActivity().setTitle("Health Centers");
     }
-
 
 }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/weekImage"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:src="@drawable/placeholder"
+            android:layout_margin="3dp"/>
+
+        <TextView
+            android:id="@+id/weekNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Week 34"
+            android:textSize="16sp"
+            android:textColor="@color/ampm_text_color"
+            android:layout_margin="3dp"/>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

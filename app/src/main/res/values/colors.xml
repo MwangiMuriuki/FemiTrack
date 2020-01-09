@@ -14,4 +14,6 @@
     <color name="colorFacebook">#3b5998</color>
     <color name="colorGoogle">#dd4b39</color>
     <color name="colorBlack">#000000</color>
+    <color name="textColor">#757575</color>
+    <color name="textColorDarker">#212121</color>
 </resources>

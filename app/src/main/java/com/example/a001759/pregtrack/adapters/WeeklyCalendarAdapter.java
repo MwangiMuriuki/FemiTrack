@@ -79,8 +79,6 @@ public class WeeklyCalendarAdapter extends RecyclerView.Adapter<WeeklyCalendarAd
             }
         });
 
-
-
     }
 
     @Override

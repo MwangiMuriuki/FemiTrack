@@ -25,7 +25,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class WeeklyCalendarAdapter extends RecyclerView.Adapter<WeeklyCalendarAdapter.MyViewHolder> {
 
-    List<weekly_calendar_model_class> list;
     Context context;
     FirebaseFirestore firestore;
     List<ModelClassWeeklyCalendar> newList;

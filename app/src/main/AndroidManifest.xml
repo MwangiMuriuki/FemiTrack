@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.a001759.pregtrack">
 
     <application
@@ -8,27 +9,93 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/femi_track_icon"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity
+            android:name=".activities.ActivitySingleArticlePage"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden"
+            android:resizeableActivity="true"
+            android:screenOrientation="portrait"
+            android:supportsPictureInPicture="true"
+            tools:targetApi="n" />
+
+        <activity android:name=".activities.ActivityBabyHealth"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden"
+            android:resizeableActivity="true"
+            android:screenOrientation="portrait"
+            android:supportsPictureInPicture="true"
+            tools:targetApi="n"/>
+
+        <activity android:name=".activities.ActivityMotherHealth"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden"
+            android:resizeableActivity="true"
+            android:screenOrientation="portrait"
+            android:supportsPictureInPicture="true"
+            tools:targetApi="n"/>
+
+        <activity android:name=".activities.ActivityBabyDiet"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden"
+            android:resizeableActivity="true"
+            android:screenOrientation="portrait"
+            android:supportsPictureInPicture="true"
+            tools:targetApi="n"/>
+
+        <activity android:name=".activities.ActivityMothersDiet"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden"
+            android:resizeableActivity="true"
+            android:screenOrientation="portrait"
+            android:supportsPictureInPicture="true"
+            tools:targetApi="n"/>
+
         <activity
             android:name=".activities.ActivityResetPassword"
-            android:theme="@style/AppTheme.fullScreen"
-            android:windowSoftInputMode="stateHidden"/>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden"
+            android:resizeableActivity="true"
+            android:screenOrientation="portrait"
+            android:supportsPictureInPicture="true"
+            tools:targetApi="n"/>
+
         <activity
             android:name=".activities.ActivityRegister"
-            android:theme="@style/AppTheme.fullScreen"
-            android:windowSoftInputMode="stateHidden"/>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden"
+            android:resizeableActivity="true"
+            android:screenOrientation="portrait"
+            android:supportsPictureInPicture="true"
+            tools:targetApi="n"/>
+
         <activity
             android:name=".activities.PregnancyInfo"
             android:label="@string/title_activity_pregnancy_info"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:resizeableActivity="true"
+            android:screenOrientation="portrait"
+            android:supportsPictureInPicture="true"
+            tools:targetApi="n"/>
+
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:resizeableActivity="true"
+            android:screenOrientation="portrait"
+            android:supportsPictureInPicture="true"
+            tools:targetApi="n"/>
+
         <activity
             android:name=".activities.Login"
             android:theme="@style/AppTheme.fullScreen"
-            android:windowSoftInputMode="stateHidden">
+            android:windowSoftInputMode="stateHidden"
+            android:resizeableActivity="true"
+            android:screenOrientation="portrait"
+            android:supportsPictureInPicture="true"
+            tools:targetApi="n">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

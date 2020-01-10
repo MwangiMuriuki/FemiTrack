@@ -34,8 +34,6 @@ public class PregnancyInfo extends AppCompatActivity {
         String symptoms = getIntent().getStringExtra("symptoms");
         String source = getIntent().getStringExtra("source");
 
-
-
         binding.toolbarLayout.setTitle("Week " + week_number);
         Glide.with(PregnancyInfo.this).load(image_url).into(binding.fetusImageView);
         binding.include.babyInfoTv.setText(Html.fromHtml(baby_info));
@@ -50,7 +48,6 @@ public class PregnancyInfo extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-
 
     }
 

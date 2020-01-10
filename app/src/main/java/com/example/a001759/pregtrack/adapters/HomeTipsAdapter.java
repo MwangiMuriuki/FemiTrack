@@ -3,6 +3,7 @@ package com.example.a001759.pregtrack.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +53,7 @@ public class HomeTipsAdapter extends RecyclerView.Adapter<HomeTipsAdapter.MyView
         Glide.with(context).load(imageUrl).into(holder.articleImage);
 
         holder.articleTitle.setText(modelClass.getTitle());
-        holder.articleInfo.setText(modelClass.getInfo());
+        holder.articleInfo.setText(Html.fromHtml(modelClass.getInfo()));
 
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override

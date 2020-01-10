@@ -5,6 +5,7 @@ import androidx.databinding.DataBindingUtil;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -31,7 +32,7 @@ public class ActivitySingleArticlePage extends AppCompatActivity {
 
         Glide.with(ActivitySingleArticlePage.this).load(article_image).into(binding.articleImage);
         binding.include.articleTitleTV.setText(article_title);
-        binding.include.articleInfoTV.setText(article_info);
+        binding.include.articleInfoTV.setText(Html.fromHtml(article_info));
 
         binding.shareArticle.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp"
+    android:layout_margin="3dp">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutArticles"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+<!--        <de.hdodenhof.circleimageview.CircleImageView-->
+<!--            android:id="@+id/otherArticlesImage"-->
+<!--            android:layout_width="65dp"-->
+<!--            android:layout_height="65dp"-->
+<!--            android:layout_margin="5dp"-->
+<!--            android:src="@drawable/mom_health"-->
+<!--            android:scaleType="centerCrop"/>-->
+
+        <ImageView
+            android:id="@+id/otherArticlesImage"
+            android:layout_width="100dp"
+            android:layout_height="70dp"
+            android:src="@drawable/mom_health"
+            android:scaleType="centerCrop"/>
+
+        <TextView
+            android:id="@+id/otherArticleTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout."
+            android:layout_gravity="center"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textSize="15sp"
+            android:textColor="@color/textColorDarker"/>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

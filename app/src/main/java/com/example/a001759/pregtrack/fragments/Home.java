@@ -101,8 +101,8 @@ public class Home extends Fragment {
         binding.homeReadMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), ActivitySingleArticlePage.class);/*Change to Pregnancy Info Page Later*/
-                startActivity(intent);
+//                Intent intent = new Intent(getContext(), ActivitySingleArticlePage.class);
+//                startActivity(intent);
             }
         });
 

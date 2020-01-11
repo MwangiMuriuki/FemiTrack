@@ -47,7 +47,7 @@
             android:textSize="13sp"
             android:layout_gravity="center"
             android:maxLines="2"
-            android:ellipsize="marquee"/>
+            android:ellipsize="end"/>
 
     </LinearLayout>
 

@@ -30,8 +30,14 @@
                 android:src="@drawable/femi_track_app_icon"
                 android:layout_marginTop="50dp" />
 
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/registerProfilePic"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/placeholder"/>
+
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/nameLayout"
+                android:id="@+id/registerNameLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -45,7 +51,7 @@
                 app:hintTextAppearance="@style/HintText">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/nameEditText"
+                    android:id="@+id/registerNameEditText"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_marginTop="10dp"
@@ -58,7 +64,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/emailLayout"
+                android:id="@+id/registerEmailLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -72,7 +78,7 @@
                 app:hintTextAppearance="@style/HintText">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/new_email"
+                    android:id="@+id/registerEmailEditText"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_marginTop="10dp"
@@ -85,7 +91,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/regPasswordLayout"
+                android:id="@+id/registerPasswordLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -100,7 +106,7 @@
                 app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/regpassword"
+                    android:id="@+id/registerPasswordEditText"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_marginTop="10dp"
@@ -117,8 +123,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
-                android:background="@drawable/button_background"
+                android:background="@drawable/button_background_accent"
                 android:text="Create Account"
+                android:textColor="@color/colorWhite" />
+
+            <Button
+                android:id="@+id/cancelRegister"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/button_background"
+                android:text="Cancel"
                 android:textColor="@color/colorWhite" />
 
         </LinearLayout>

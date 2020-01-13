@@ -35,7 +35,6 @@ import dmax.dialog.SpotsDialog;
 
 public class ActivityRegister extends AppCompatActivity {
 
-
     AlertDialog registerDialog;
 
     FirebaseFirestore myFirestore = FirebaseFirestore.getInstance();
@@ -115,15 +114,15 @@ public class ActivityRegister extends AppCompatActivity {
 
                     registerDialog.setCancelable(false);
                     registerDialog.show();
-                    registerNewUser(email, password);
-
+//                    registerNewUser(email, password);
+                    mthdregisterUser(email,password);
                 }
-
             }
         });
 
-
     }
+
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -144,6 +143,48 @@ public class ActivityRegister extends AppCompatActivity {
             }
         }
 
+    }
+
+    private void mthdregisterUser(final String email, String password) {
+
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            registerDialog.cancel();
+                            // Sign in success, update UI with the signed-in user's information
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            final String userID = mAuth.getCurrentUser().getUid();
+                            user_name = binding.registerNameLayout.getEditText().getText().toString();
+
+                            ModelClassUsers modelClassUsers = new ModelClassUsers(user_name, email, display_picture, userID, null, null);
+                            myFirestore.collection("Users").document(userID).set(modelClassUsers).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+
+                                    if (task.isSuccessful()){
+
+                                        Toast.makeText(ActivityRegister.this,  "Registration Successful!!!", Toast.LENGTH_LONG).show();
+
+                                    } else{
+
+                                        Toast.makeText(getApplicationContext(), "Account Creation failed. Please try again Later. ", Toast.LENGTH_LONG).show();
+
+                                    }
+                                }
+                            });
+
+                            updateUI(user); /*DIRECT USER TO THE NEXT PAGE AFTER OPERTAION IS SUCCESFUL*/
+
+                        } else {
+                            registerDialog.cancel();
+
+                            Toast.makeText(getApplicationContext(), "Error Creating Account. Please try again Later. ", Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                });
     }
 
     private void registerNewUser(final String email, String password) {
@@ -218,7 +259,9 @@ public class ActivityRegister extends AppCompatActivity {
 
                         } else {
 
-                           /*If sign in fails, display a message to the user.*/
+                           /*If registration in fails, display a message to the user.*/
+
+                            registerDialog.cancel();
 
                             Toast.makeText(getApplicationContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
                         }
@@ -229,7 +272,7 @@ public class ActivityRegister extends AppCompatActivity {
 
     private void updateUI(FirebaseUser user) {
 
-        Intent nextPage = new Intent(getApplicationContext(), MainActivity.class);
+        Intent nextPage = new Intent(getApplicationContext(), ActivityPregnancyCalculator.class);
         startActivity(nextPage);
         finish();
     }

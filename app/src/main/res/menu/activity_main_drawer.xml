@@ -9,28 +9,33 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home"
-            android:title="Home" />
+            android:title="Home"
+            android:alpha ="0"/>
 
         <item
             android:id="@+id/nav_pregnancy_calculator"
             android:icon="@drawable/ic_calculator"
-            android:title="Pregnancy Calculator" />
+            android:title="Pregnancy Calculator"
+            android:alpha ="0"/>
 
         <item
             android:id="@+id/nav_weekly_calendar"
             android:icon="@drawable/ic_calendar"
-            android:title="Weekly Calendar" />
+            android:title="Weekly Calendar"
+            android:alpha ="0"/>
 
 
         <item
             android:id="@+id/nav_appointments"
             android:icon="@drawable/ic_appointment"
-            android:title="My Appointments" />
+            android:title="My Appointments"
+            android:alpha ="0"/>
 
         <item
             android:id="@+id/nav_health_centers"
             android:icon="@drawable/ic_health_center"
-            android:title="Health Centers" />
+            android:title="Health Centers"
+            android:alpha ="0"/>
 
     </group>
 

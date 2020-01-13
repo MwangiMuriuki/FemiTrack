@@ -11,6 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".activities.ActivityPregnancyCalculator"></activity>
         <activity
             android:name=".activities.ActivitySingleArticlePage"
             android:resizeableActivity="true"
@@ -97,11 +98,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
-
         <activity android:name=".activities.CreateAppointment" />
     </application>
 

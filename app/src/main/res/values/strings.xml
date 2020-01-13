@@ -102,4 +102,8 @@
     <string name="email_hint">Email</string>
     <string name="password_hint">Password</string>
     <string name="full_name_hint">Full Name</string>
+    <string name="logout">Logout</string>
+    <string name="shortcut_home">Home</string>
+    <string name="preg_calc">Pregnancy Calculator</string>
+    <string name="shortcut_weekly_calendar">Weekly Calendar</string>
 </resources>

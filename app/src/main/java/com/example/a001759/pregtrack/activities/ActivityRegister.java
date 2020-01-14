@@ -60,7 +60,7 @@ public class ActivityRegister extends AppCompatActivity {
         //CHECK IF DEVICE IS CONNECTED TO THE INTERNET
         ConnectivityManager cm = (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        final boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
 
         registerDialog = new SpotsDialog(this, R.style.registerAlert);
 
@@ -98,17 +98,21 @@ public class ActivityRegister extends AppCompatActivity {
                 email = binding.registerEmailLayout.getEditText().getText().toString();
                 password = binding.registerPasswordLayout.getEditText().toString();
 
-                if (userName.isEmpty() || userName == null){
+                if (userName.isEmpty()){
 
                     Toast.makeText(ActivityRegister.this,  " Please enter your name ", Toast.LENGTH_LONG).show();
 
-                }else if (email.isEmpty()|| email == null){
+                }else if (email.isEmpty()){
 
                     Toast.makeText(ActivityRegister.this,  " Please enter an Email Address ", Toast.LENGTH_LONG).show();
 
-                }else if (password.isEmpty() || password == null){
+                }else if (password.isEmpty()){
 
                     Toast.makeText(ActivityRegister.this,  " Please Enter a Password ", Toast.LENGTH_LONG).show();
+
+                } if (!isConnected){
+
+                    Toast.makeText(getApplicationContext(), "Please check your internet connection and try again.", Toast.LENGTH_LONG).show();
 
                 }else{
 

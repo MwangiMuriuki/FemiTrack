@@ -61,7 +61,7 @@
             app:layout_anchor="@id/app_bar"
             app:layout_anchorGravity="bottom|end"
             app:srcCompat="@drawable/share_icon"
-            app:backgroundTint="@color/colorPrimary" />
+            app:backgroundTint="@color/colorAccent" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

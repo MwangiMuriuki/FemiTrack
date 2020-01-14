@@ -79,10 +79,6 @@ public class WeeklyCalendar extends Fragment {
 
                     for (DocumentSnapshot documentSnapshot: task.getResult()) {
 
-//                        weekly_calendar_model_class modelClass = new weekly_calendar_model_class(
-//                                documentSnapshot.getString("image_url"),
-//                                documentSnapshot.getString("week"));
-
                         ModelClassWeeklyCalendar modelClassWeeklyCalendar = new ModelClassWeeklyCalendar(
                                 documentSnapshot.getString("image_url"),
                                 documentSnapshot.getString("week_number"),

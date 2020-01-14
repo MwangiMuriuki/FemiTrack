@@ -55,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private RecyclerView recyclerView;
     private NavigationDrawerAdapter navDrawerAdapter;
 
+    public static String weeksPregnant;
+
     ActivityMainBinding binding;
 
     @Override
@@ -83,9 +85,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View view) {
 
-                Intent logout = new Intent(getApplication(), Login.class);
-                startActivity(logout);
-                finish();
+                if (firebaseUser!=null){
+                    Intent logout = new Intent(getApplicationContext(), Login.class);
+                    mAuth.signOut();
+                    binding.profileUserName.setText(" ");
+                    startActivity(logout);
+                    finish();
+                }else{
+                    Intent logout = new Intent(getApplication(), Login.class);
+                    startActivity(logout);
+                    finish();
+                }
             }
         });
 
@@ -94,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         if (firebaseFirestore != null) {
+
             String userID = firebaseUser.getUid();
 
             firebaseFirestore.collection("Users").document(userID).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -106,7 +117,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                         if (documentSnapshot !=null && documentSnapshot.exists()){
 
-
                             ModelClassUsers modelClassUsers = new ModelClassUsers(
                                     documentSnapshot.getString("uName"),
                                     documentSnapshot.getString("email"),
@@ -118,6 +128,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             myList.add(modelClassUsers);
 
                             String uname = documentSnapshot.getString("uName");
+                            weeksPregnant = documentSnapshot.getString("weeks_pregnant");
                             binding.profileUserName.setText(uname);
 
                         }

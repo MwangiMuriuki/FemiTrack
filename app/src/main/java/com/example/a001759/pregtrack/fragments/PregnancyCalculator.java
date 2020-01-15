@@ -146,6 +146,7 @@ public class PregnancyCalculator extends Fragment{
 
             }
         },mYear, mMonth, mDay);
+
         datePickerDialog.show();
 
     }

@@ -241,7 +241,7 @@ public class Home extends Fragment {
                             final String source = documentSnapshot.getString("source");
 
                             binding.homeWeekInfo.setText(Html.fromHtml(baby_info));
-                            binding.homeWeekInfo.setTextColor(getActivity().getResources().getColor(R.color.colorWhite));
+                            binding.homeWeekInfo.setTextColor(Objects.requireNonNull(getActivity()).getResources().getColor(R.color.colorWhite));
                             Glide.with(getContext()).load(uri).into(binding.homeWeekImage);
 
                             binding.homeReadMore.setOnClickListener(new View.OnClickListener() {

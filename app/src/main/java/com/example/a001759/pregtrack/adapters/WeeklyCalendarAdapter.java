@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -29,7 +30,7 @@ public class WeeklyCalendarAdapter extends RecyclerView.Adapter<WeeklyCalendarAd
     FirebaseFirestore firestore;
     List<ModelClassWeeklyCalendar> newList;
 
-    String baby_info, image_url, week_number, symptoms, source;
+    String baby_info, image_url, week_number, symptoms, source, intro;
 
     public WeeklyCalendarAdapter(Context context, FirebaseFirestore firestore, List<ModelClassWeeklyCalendar> newList) {
 
@@ -67,6 +68,7 @@ public class WeeklyCalendarAdapter extends RecyclerView.Adapter<WeeklyCalendarAd
                 week_number = modelClassWeeklyCalendar.getWeek_number();
                 symptoms = modelClassWeeklyCalendar.getSymptoms();
                 source = modelClassWeeklyCalendar.getSource();
+                intro = modelClassWeeklyCalendar.getIntro();
 
                 Intent intent = new Intent(context, PregnancyInfo.class);
                 intent.putExtra("baby_info", baby_info);
@@ -74,6 +76,7 @@ public class WeeklyCalendarAdapter extends RecyclerView.Adapter<WeeklyCalendarAd
                 intent.putExtra("week_number", week_number);
                 intent.putExtra("symptoms", symptoms);
                 intent.putExtra("source", source);
+                intent.putExtra("intro", intro);
                 context.startActivity(intent);
             }
         });
@@ -91,6 +94,7 @@ public class WeeklyCalendarAdapter extends RecyclerView.Adapter<WeeklyCalendarAd
         String weekImg_String;
         CircleImageView week_image;
         LinearLayout linearLayout;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 

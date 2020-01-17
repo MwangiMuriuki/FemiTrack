@@ -7,16 +7,18 @@ public class ModelClassWeeklyCalendar {
     String baby_info;
     String symptoms;
     String source;
+    String intro;
 
     public ModelClassWeeklyCalendar() {
     }
 
-    public ModelClassWeeklyCalendar(String week_picture, String week_number, String baby_info, String symptoms, String source) {
+    public ModelClassWeeklyCalendar(String week_picture, String week_number, String baby_info, String symptoms, String source, String intro) {
         this.week_picture = week_picture;
         this.week_number = week_number;
         this.baby_info = baby_info;
         this.symptoms = symptoms;
         this.source = source;
+        this.intro = intro;
     }
 
     public String getWeek_picture() {
@@ -57,5 +59,13 @@ public class ModelClassWeeklyCalendar {
 
     public void setSource(String source) {
         this.source = source;
+    }
+
+    public String getIntro() {
+        return intro;
+    }
+
+    public void setIntro(String intro) {
+        this.intro = intro;
     }
 }

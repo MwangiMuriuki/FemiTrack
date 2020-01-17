@@ -228,7 +228,8 @@ public class Home extends Fragment {
                                     documentSnapshot.getString("week_number"),
                                     documentSnapshot.getString("baby_info"),
                                     documentSnapshot.getString("symptoms"),
-                                    documentSnapshot.getString("source"));
+                                    documentSnapshot.getString("source"),
+                                    documentSnapshot.getString("intro"));
 
                             myWeek.add(modelClassWeeklyCalendar);
 
@@ -239,8 +240,9 @@ public class Home extends Fragment {
                             final String week_number = documentSnapshot.getString("week_number");
                             final String symptoms = documentSnapshot.getString("symptoms");
                             final String source = documentSnapshot.getString("source");
+                            final String intro = documentSnapshot.getString("intro");
 
-                            binding.homeWeekInfo.setText(Html.fromHtml(baby_info));
+                            binding.homeWeekInfo.setText(Html.fromHtml(intro));
 
                             Glide.with(getContext()).load(uri).into(binding.homeWeekImage);
 
@@ -253,6 +255,7 @@ public class Home extends Fragment {
                                     intent.putExtra("week_number", week_number);
                                     intent.putExtra("symptoms", symptoms);
                                     intent.putExtra("source", source);
+                                    intent.putExtra("intro", intro);
                                     startActivity(intent);
                                 }
                             });

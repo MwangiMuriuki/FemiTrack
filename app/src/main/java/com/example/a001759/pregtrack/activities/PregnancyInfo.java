@@ -33,12 +33,14 @@ public class PregnancyInfo extends AppCompatActivity {
         String week_number = getIntent().getStringExtra("week_number");
         String symptoms = getIntent().getStringExtra("symptoms");
         String source = getIntent().getStringExtra("source");
+        String intro = getIntent().getStringExtra("intro");
 
         binding.toolbarLayout.setTitle("Week " + week_number);
         Glide.with(PregnancyInfo.this).load(image_url).into(binding.fetusImageView);
         binding.include.babyInfoTv.setText(Html.fromHtml(baby_info));
         binding.include.symptomsTv.setText(Html.fromHtml(symptoms));
         binding.include.sourceTv.setText(Html.fromHtml(source));
+        binding.include.introTv.setText(Html.fromHtml(intro));
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

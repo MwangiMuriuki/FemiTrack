@@ -7,12 +7,12 @@ public class ModelClassUsers {
     String display_picture;
     String userID;
     String due_date;
-    String weeks_pregnant;
+    long weeks_pregnant;
 
     public ModelClassUsers() {
     }
 
-    public ModelClassUsers(String uName, String email, String display_picture, String userID, String due_date, String weeks_pregnant) {
+    public ModelClassUsers(String uName, String email, String display_picture, String userID, String due_date, long weeks_pregnant) {
         this.uName = uName;
         this.email = email;
         this.display_picture = display_picture;
@@ -61,11 +61,11 @@ public class ModelClassUsers {
         this.due_date = due_date;
     }
 
-    public String getWeeks_pregnant() {
+    public long getWeeks_pregnant() {
         return weeks_pregnant;
     }
 
-    public void setWeeks_pregnant(String weeks_pregnant) {
+    public void setWeeks_pregnant(long weeks_pregnant) {
         this.weeks_pregnant = weeks_pregnant;
     }
 }

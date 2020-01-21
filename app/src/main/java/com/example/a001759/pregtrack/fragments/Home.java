@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ import com.example.a001759.pregtrack.models.HomeTipsModelClass;
 import com.example.a001759.pregtrack.models.ModelClassUsers;
 import com.example.a001759.pregtrack.models.ModelClassWeeklyCalendar;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -53,6 +55,8 @@ public class Home extends Fragment {
     static RecyclerView recyclerView;
     FirebaseFirestore firebaseFirestore;
     HomeTipsAdapter adapter;
+
+    private static final String TAG = "Home";
 
     List<HomeTipsModelClass> myList;
     final List<ModelClassUsers> myUsers = new ArrayList<>();
@@ -133,7 +137,6 @@ public class Home extends Fragment {
             }
         });
 
-
         return binding.getRoot();
     }
 
@@ -156,6 +159,9 @@ public class Home extends Fragment {
                     }
 
                     adapter.notifyDataSetChanged();
+
+                    binding.pBar2.setVisibility(View.GONE);
+                    binding.homeArticlesRV.setVisibility(View.VISIBLE);
 
                 }else {
 
@@ -189,14 +195,16 @@ public class Home extends Fragment {
                                     documentSnapshot.getString("display_picture"),
                                     documentSnapshot.getString("userID"),
                                     documentSnapshot.getString("due_date"),
-                                    documentSnapshot.getString("weeks_pregnant"));
+                                    documentSnapshot.getLong("weeks_pregnant"));
 
                             myUsers.add(modelClassUsers);
 
-                            weeksPregnant = documentSnapshot.getString("weeks_pregnant");
+                            long weeksPreg = documentSnapshot.getLong("weeks_pregnant");
+
+                            weeksPregnant = String.valueOf(weeksPreg);
                             binding.homeWeekNumber.setText("Week  " + weeksPregnant);
 
-                            getWeekInfo(weeksPregnant);
+                            getWeekInfo(weeksPreg);
 
                         }
                     }
@@ -210,14 +218,17 @@ public class Home extends Fragment {
     }
 
     /*GET WEEK INFO*/
-    private void getWeekInfo(String weeksPregnant) {
+    private void getWeekInfo(long weeksPreg) {
 
-        if (weeksPregnant !=null){
+        if (weeksPreg != 0){
 
             /*GET WEEK INFO*/
-            firebaseFirestore.collection("week_by_week_info").whereEqualTo("week_number", weeksPregnant).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            firebaseFirestore.collection("week_by_week_info").whereEqualTo("week_number", weeksPreg).get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    Log.d(TAG, "onComplete: " + task.getResult().size());
 
                     if (task.isSuccessful()){
 
@@ -225,7 +236,7 @@ public class Home extends Fragment {
 
                             ModelClassWeeklyCalendar modelClassWeeklyCalendar = new ModelClassWeeklyCalendar(
                                     documentSnapshot.getString("image_url"),
-                                    documentSnapshot.getString("week_number"),
+                                    documentSnapshot.getLong("week_number"),
                                     documentSnapshot.getString("baby_info"),
                                     documentSnapshot.getString("symptoms"),
                                     documentSnapshot.getString("source"),
@@ -237,7 +248,7 @@ public class Home extends Fragment {
 
                             final String baby_info = documentSnapshot.getString("baby_info");
                             final String image_url = documentSnapshot.getString("image_url");
-                            final String week_number = documentSnapshot.getString("week_number");
+                            final String week_number = String.valueOf(documentSnapshot.getLong("week_number"));
                             final String symptoms = documentSnapshot.getString("symptoms");
                             final String source = documentSnapshot.getString("source");
                             final String intro = documentSnapshot.getString("intro");
@@ -259,13 +270,29 @@ public class Home extends Fragment {
                                     startActivity(intent);
                                 }
                             });
+
+                            binding.pBar1.setVisibility(View.GONE);
+                            binding.relativeLayoutTop.setVisibility(View.VISIBLE);
                         }
                     }else{
 
                         Toast.makeText(getContext(), "Error fetching data", Toast.LENGTH_LONG).show();
+
+                        binding.homeWeekInfo.setText("Error fetching data");
                     }
                 }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+
+                    Log.d(TAG, "onFailure: " + e.getMessage());
+                }
             });
+        }else {
+
+            Toast.makeText(getContext(), "Mmmmh, 0 weeks pregnant...well, you really aren`t pregnant......yet", Toast.LENGTH_LONG).show();
+            binding.homeWeekInfo.setText("Mmmmh, 0 weeks pregnant...well, you really aren`t pregnant......yet");
+
         }
     }
 

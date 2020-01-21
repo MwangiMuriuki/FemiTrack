@@ -16,7 +16,6 @@ import com.example.a001759.pregtrack.fragments.Home;
 import com.example.a001759.pregtrack.R;
 import com.example.a001759.pregtrack.fragments.Appointments;
 import com.example.a001759.pregtrack.fragments.HealthCenters;
-import com.example.a001759.pregtrack.fragments.PregnancyCalculator;
 import com.example.a001759.pregtrack.fragments.WeeklyCalendar;
 import com.example.a001759.pregtrack.models.ModelClassUsers;
 import com.example.a001759.pregtrack.models.ModelNavigationDrawer;
@@ -27,7 +26,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
 
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -123,12 +121,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                     documentSnapshot.getString("display_picture"),
                                     documentSnapshot.getString("userID"),
                                     documentSnapshot.getString("due_date"),
-                                    documentSnapshot.getString("weeks_pregnant"));
+                                    documentSnapshot.getLong("weeks_pregnant"));
 
                             myList.add(modelClassUsers);
 
                             String uname = documentSnapshot.getString("uName");
-                            weeksPregnant = documentSnapshot.getString("weeks_pregnant");
+                            weeksPregnant = String.valueOf(documentSnapshot.getLong("weeks_pregnant"));
                             binding.profileUserName.setText(uname);
 
                         }
@@ -294,9 +292,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_home:
                 fragment = new Home();
                 break;
-            case R.id.nav_pregnancy_calculator:
-                fragment = new PregnancyCalculator();
-                break;
+
             case R.id.nav_weekly_calendar:
                 fragment = new WeeklyCalendar();
                 break;

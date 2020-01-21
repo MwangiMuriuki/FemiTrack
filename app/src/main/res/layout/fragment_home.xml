@@ -26,10 +26,21 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <ProgressBar
+                    android:id="@+id/pBar1"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center"
+                    android:visibility="visible">
+                </ProgressBar>
+
                 <RelativeLayout
+                    android:id="@+id/relativeLayoutTop"
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
-                    android:layout_margin="5dp">
+                    android:layout_margin="5dp"
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -132,6 +143,15 @@
 
                 </RelativeLayout>
 
+                <ProgressBar
+                    android:id="@+id/pBar2"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="165dp"
+                    android:layout_gravity="center"
+                    android:visibility="visible">
+                </ProgressBar>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/homeArticlesRV"
                     android:layout_width="match_parent"
@@ -144,7 +164,8 @@
                     android:scrollbarSize="2dp"
                     android:scrollbarStyle="outsideOverlay"
                     android:fadeScrollbars="false"
-                    android:scrollbarThumbHorizontal="@color/colorAccent"/>
+                    android:scrollbarThumbHorizontal="@color/colorAccent"
+                    android:visibility="gone"/>
 
                 <TextView
                     android:layout_width="wrap_content"

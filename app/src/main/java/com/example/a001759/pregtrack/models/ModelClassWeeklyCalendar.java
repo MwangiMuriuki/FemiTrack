@@ -3,7 +3,7 @@ package com.example.a001759.pregtrack.models;
 public class ModelClassWeeklyCalendar {
 
     String week_picture;
-    String week_number;
+    long week_number;
     String baby_info;
     String symptoms;
     String source;
@@ -12,7 +12,7 @@ public class ModelClassWeeklyCalendar {
     public ModelClassWeeklyCalendar() {
     }
 
-    public ModelClassWeeklyCalendar(String week_picture, String week_number, String baby_info, String symptoms, String source, String intro) {
+    public ModelClassWeeklyCalendar(String week_picture, long week_number, String baby_info, String symptoms, String source, String intro) {
         this.week_picture = week_picture;
         this.week_number = week_number;
         this.baby_info = baby_info;
@@ -29,11 +29,11 @@ public class ModelClassWeeklyCalendar {
         this.week_picture = week_picture;
     }
 
-    public String getWeek_number() {
+    public long getWeek_number() {
         return week_number;
     }
 
-    public void setWeek_number(String week_number) {
+    public void setWeek_number(long week_number) {
         this.week_number = week_number;
     }
 

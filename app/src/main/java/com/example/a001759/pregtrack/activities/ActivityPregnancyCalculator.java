@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,7 +32,11 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 
+import dmax.dialog.SpotsDialog;
+
 public class ActivityPregnancyCalculator extends AppCompatActivity {
+
+    AlertDialog saveDialog;
 
     DatePickerDialog datePickerDialog;
     Calendar calendar;
@@ -41,8 +46,12 @@ public class ActivityPregnancyCalculator extends AppCompatActivity {
     String currentDate;
     String finalDueDate;
     String weeksDifference;
+    String daysDifference;
+    long weeksPregnant;
 
     String selectedDueDate, weekDiff, period;
+    long week_difference;
+    long days_difference;
 
     public static final String[] MONTHS = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
@@ -60,6 +69,8 @@ public class ActivityPregnancyCalculator extends AppCompatActivity {
         binding.pregnancyCalcToolBar.setNavigationIcon(R.drawable.ic_back);
         setSupportActionBar(binding.pregnancyCalcToolBar);
         Objects.requireNonNull(getSupportActionBar()).setTitle("Pregnancy Calculator");
+
+        saveDialog = new SpotsDialog(this, R.style.savingDateAlert);
 
         mAuth = FirebaseAuth.getInstance();
         firebaseUser = mAuth.getCurrentUser();
@@ -100,7 +111,8 @@ public class ActivityPregnancyCalculator extends AppCompatActivity {
         binding.saveSelectedDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                saveDialog.setCancelable(false);
+                saveDialog.show();
                 saveSelectedData();
 
             }
@@ -110,6 +122,8 @@ public class ActivityPregnancyCalculator extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                saveDialog.setCancelable(false);
+                saveDialog.show();
                 saveCalculated();
             }
         });
@@ -184,16 +198,17 @@ public class ActivityPregnancyCalculator extends AppCompatActivity {
                 long differenceWeeks = difference / (7 * 24 * 60 * 60 * 1000);
                 long differenceDays =  difference / (24 * 60 * 60 * 1000);
                 long daysPregnant = Math.abs(282 - differenceDays);
-                long weeksPregnant = Math.abs(40 - differenceWeeks) ;
+                long arith = daysPregnant % 7;
+                weeksPregnant = Math.abs(40 - differenceWeeks) ;
+
                 weeksDifference = Long.toString(weeksPregnant);
-                String daysDifference = Long.toString(daysPregnant);
+                daysDifference = Long.toString(arith);
 
 //                String pickedDate = date + " " + MONTHS[month] + " " + year;
 
-
                 binding.selectedDate2.setText(pickedDate);
                 binding.dueDate.setText(finalDueDate);
-                binding.weeksPregnant.setText("Congratulations, you are " + weeksDifference + " weeks pregnant!");
+                binding.weeksPregnant.setText("Congratulations, you are on week " + weeksDifference + " and day " + arith + " of your pregnancy!");
 
                 binding.layoutData2.setVisibility(View.VISIBLE);
 
@@ -210,11 +225,17 @@ public class ActivityPregnancyCalculator extends AppCompatActivity {
         String userID = firebaseUser.getUid();
 
         DocumentReference documentReference = firebaseFirestore.collection("Users").document(userID);
-        documentReference.update("weeks_pregnant", weeksDifference , "due_date", finalDueDate).addOnSuccessListener(new OnSuccessListener<Void>() {
+        documentReference.update("weeks_pregnant", weeksPregnant , "due_date", finalDueDate).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
 
-                Toast.makeText(ActivityPregnancyCalculator.this, "Data saved.", Toast.LENGTH_LONG).show();
+                saveDialog.cancel();
+
+                Toast.makeText(ActivityPregnancyCalculator.this, "Done. See more on what to expect this month...", Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
 
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -240,8 +261,8 @@ public class ActivityPregnancyCalculator extends AppCompatActivity {
                 SimpleDateFormat sdf2 = new SimpleDateFormat("EEEE, dd MMMM yyyy", Locale.US);
                 SimpleDateFormat dates = new SimpleDateFormat("dd/MM/yyyy");
 
-                Date sd= new Date();
-                Date cd = new Date();
+                Date sd= new Date(); /*selected date*/
+                Date cd = new Date(); /*current date*/
 
                 String newSelectedDate = date + "-" + (month + 1) + "-" + year;
 
@@ -290,9 +311,13 @@ public class ActivityPregnancyCalculator extends AppCompatActivity {
                 }
 
                 long difference2 = Math.abs(Objects.requireNonNull(sd).getTime() - Objects.requireNonNull(cd).getTime());
-                long lngWeeksDiff =  difference2 / (7 * 24 * 60 * 60 * 1000);
-                long newDiff = 40 - lngWeeksDiff;
-                weekDiff = Long.toString(lngWeeksDiff);
+                week_difference =  difference2 / (7 * 24 * 60 * 60 * 1000);
+                days_difference = difference2 / (24 * 60 * 60 * 1000);
+                long newDiff = 40 - week_difference;
+                weekDiff = Long.toString(week_difference);
+                long daysPregnant = Math.abs(282 - days_difference);
+                long dPreg = daysPregnant % 7;
+                String arith2 = Long.toString(dPreg);
 
 //               String suffix = null;
 //
@@ -313,7 +338,7 @@ public class ActivityPregnancyCalculator extends AppCompatActivity {
 
 //               binding.selectedDate.setText(date + "/" + (month + 1) + "/" + year);
                 binding.selectedDate.setText(selectedDueDate);
-                binding.weeksPregnantSelected.setText("Congratulations, you are " +  weekDiff + " weeks pregnant!");
+                binding.weeksPregnantSelected.setText("Congratulations, you are on week " +  weekDiff + " and day " + arith2 + " of your pregnancy!");
 
                 binding.layoutData1.setVisibility(View.VISIBLE);
             }
@@ -328,11 +353,17 @@ public class ActivityPregnancyCalculator extends AppCompatActivity {
         String userID = firebaseUser.getUid();
 
         DocumentReference documentReference = firebaseFirestore.collection("Users").document(userID);
-        documentReference.update("weeks_pregnant", weekDiff , "due_date", selectedDueDate).addOnSuccessListener(new OnSuccessListener<Void>() {
+        documentReference.update("weeks_pregnant", week_difference , "due_date", selectedDueDate).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
 
-                Toast.makeText(ActivityPregnancyCalculator.this, "Data saved.", Toast.LENGTH_LONG).show();
+                saveDialog.cancel();
+
+                Toast.makeText(ActivityPregnancyCalculator.this, "Done. See more on what to expect this month...", Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
 
             }
         }).addOnFailureListener(new OnFailureListener() {

@@ -65,7 +65,7 @@ public class WeeklyCalendarAdapter extends RecyclerView.Adapter<WeeklyCalendarAd
 
                 baby_info = modelClassWeeklyCalendar.getBaby_info();
                 image_url = modelClassWeeklyCalendar.getWeek_picture();
-                week_number = modelClassWeeklyCalendar.getWeek_number();
+                week_number = String.valueOf(modelClassWeeklyCalendar.getWeek_number());
                 symptoms = modelClassWeeklyCalendar.getSymptoms();
                 source = modelClassWeeklyCalendar.getSource();
                 intro = modelClassWeeklyCalendar.getIntro();

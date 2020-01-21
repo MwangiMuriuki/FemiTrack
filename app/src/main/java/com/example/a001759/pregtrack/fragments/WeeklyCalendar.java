@@ -81,7 +81,7 @@ public class WeeklyCalendar extends Fragment {
 
                         ModelClassWeeklyCalendar modelClassWeeklyCalendar = new ModelClassWeeklyCalendar(
                                 documentSnapshot.getString("image_url"),
-                                documentSnapshot.getString("week_number"),
+                                documentSnapshot.getLong("week_number"),
                                 documentSnapshot.getString("baby_info"),
                                 documentSnapshot.getString("symptoms"),
                                 documentSnapshot.getString("source"),

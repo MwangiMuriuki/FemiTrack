@@ -42,7 +42,7 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -97,10 +96,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-
         if (firebaseFirestore != null) {
 
             String userID = firebaseUser.getUid();
@@ -121,7 +116,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                     documentSnapshot.getString("display_picture"),
                                     documentSnapshot.getString("userID"),
                                     documentSnapshot.getString("due_date"),
-                                    documentSnapshot.getLong("weeks_pregnant"));
+                                    documentSnapshot.getLong("weeks_pregnant"),
+                                    documentSnapshot.getLong("days_pregnant"));
 
                             myList.add(modelClassUsers);
 
@@ -139,7 +135,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             binding.profileUserName.setText("");
         }
 
-//        displaySelectedScreen(R.id.nav_home);
     }
 
     private void showMainFragment() {
@@ -225,8 +220,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
     }
 
-
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -259,70 +252,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-//        int id = item.getItemId();
-//
-//        if (id == R.id.nav_camera) {
-//            // Handle the camera action
-//        } else if (id == R.id.nav_gallery) {
-//
-//        } else if (id == R.id.nav_slideshow) {
-//
-//        } else if (id == R.id.nav_manage) {
-//
-//        }
-//
-//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        drawer.closeDrawer(GravityCompat.START);
-
-        displaySelectedScreen(item.getItemId());
-        return true;
-    }
-
-    private void displaySelectedScreen(int itemId) {
-
-        //creating fragment object
-        Fragment fragment = null;
-
-        //initializing the fragment object which is selected
-        switch (itemId) {
-            case R.id.nav_home:
-                fragment = new Home();
-                break;
-
-            case R.id.nav_weekly_calendar:
-                fragment = new WeeklyCalendar();
-                break;
-            case R.id.nav_appointments:
-                fragment = new Appointments();
-                break;
-            case R.id.nav_health_centers:
-                fragment = new HealthCenters();
-                break;
-            case R.id.nav_logout:
-                logout();
-                break;
-
-        }
-
-        //replacing the fragment
-        if (fragment != null) {
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.content_frame, fragment);
-            ft.commit();
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-    }
-
-    private void logout() {
-
-        Intent logout = new Intent(getApplication(), Login.class);
-        startActivity(logout);
-        finish();
-    }
 }

@@ -26,6 +26,7 @@ import com.example.a001759.pregtrack.activities.ActivityBabyDiet;
 import com.example.a001759.pregtrack.activities.ActivityBabyHealth;
 import com.example.a001759.pregtrack.activities.ActivityMotherHealth;
 import com.example.a001759.pregtrack.activities.ActivityMothersDiet;
+import com.example.a001759.pregtrack.activities.ActivityPregnancyCalculator;
 import com.example.a001759.pregtrack.activities.MainActivity;
 import com.example.a001759.pregtrack.activities.PregnancyInfo;
 import com.example.a001759.pregtrack.adapters.HomeTipsAdapter;
@@ -35,15 +36,22 @@ import com.example.a001759.pregtrack.models.ModelClassUsers;
 import com.example.a001759.pregtrack.models.ModelClassWeeklyCalendar;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 
@@ -63,6 +71,13 @@ public class Home extends Fragment {
     List<ModelClassWeeklyCalendar> myWeek = new ArrayList<>();
 
     String weeksPregnant;
+    String daysPregnant;
+
+    String weeks_pregnant;
+    String days_pregnant;
+
+    long wPreg;
+    long dayDiff;
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser firebaseUser;
@@ -92,7 +107,7 @@ public class Home extends Fragment {
 
         recyclerView.setAdapter(adapter);
 
-        getWeeksPregnant();
+        getDayOfWeek();
 
         getHomeArticles();
 
@@ -138,6 +153,121 @@ public class Home extends Fragment {
         });
 
         return binding.getRoot();
+    }
+
+    /*GET DAY OF WEEK FOR EVERY SINGLE DAY*/
+    private void getDayOfWeek() {
+        final Calendar cal = Calendar.getInstance();
+        final int mYear = cal.get(Calendar.YEAR); // get current year
+        final int mMonth = cal.get(Calendar.MONTH); // get current month
+        final int mDay = cal.get(Calendar.DAY_OF_MONTH); // get today`s date
+
+        if (firebaseFirestore != null) {
+
+            String userID = firebaseUser.getUid();
+
+            firebaseFirestore.collection("Users").document(userID).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                    if (task.isSuccessful()){
+
+                        DocumentSnapshot documentSnapshot = task.getResult();
+
+                        if (documentSnapshot !=null && documentSnapshot.exists()){
+
+                            ModelClassUsers modelClassUsers = new ModelClassUsers(
+                                    documentSnapshot.getString("uName"),
+                                    documentSnapshot.getString("email"),
+                                    documentSnapshot.getString("display_picture"),
+                                    documentSnapshot.getString("userID"),
+                                    documentSnapshot.getString("due_date"),
+                                    documentSnapshot.getLong("weeks_pregnant"),
+                                    documentSnapshot.getLong("days_pregnant"));
+
+                            myUsers.add(modelClassUsers);
+
+                            long daysPreg = documentSnapshot.getLong("days_pregnant");
+
+                            daysPregnant = String.valueOf(daysPreg);
+
+                            String due_date = documentSnapshot.getString("due_date");
+                            String today = mDay + "-" + (mMonth + 1) + "-" + mYear;
+
+                            Date dd= new Date(); /*due date*/
+                            Date cd = new Date(); /*current date*/
+
+                            SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd MMMM yyyy", Locale.US);
+
+                            /*CONVERT STRINGS TO CALENDAR FORMAT*/
+                            Calendar calendarDD = Calendar.getInstance();
+                            try {
+                                assert due_date != null;
+                                calendarDD.setTime(sdf.parse(due_date));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+                            Calendar calendarTD = Calendar.getInstance();
+                            try {
+                                calendarTD.setTime(Objects.requireNonNull(sdf.parse(today)));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+                            String dueDate = sdf.format(calendarDD.getTime());
+                            String currentDate = sdf.format(calendarTD.getTime());
+
+                            try {
+                                dd = sdf.parse(dueDate);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+                            try {
+                                cd = sdf.parse(currentDate);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+                            long diff = Math.abs(Objects.requireNonNull(cd).getTime() - Objects.requireNonNull(dd).getTime());
+                            wPreg = diff / (7 * 24 * 60 * 60 * 1000);
+                            dayDiff =  diff / (24 * 60 * 60 * 1000);
+                            long newWeekDiff = 40 - wPreg;
+                            long daysPregnant = Math.abs(282 - dayDiff);
+                            long dPreg = daysPregnant % 7;
+                            days_pregnant = Long.toString(dPreg);
+
+                            updateData(newWeekDiff, dPreg);
+
+                        }
+                    }
+                }
+            });
+
+        }else {
+
+        }
+
+    }
+
+    private void updateData(long newWeekDiff, long dPreg) {
+        String userID = firebaseUser.getUid();
+
+        DocumentReference documentReference = firebaseFirestore.collection("Users").document(userID);
+        documentReference.update("weeks_pregnant", newWeekDiff ,  "days_pregnant", dPreg).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+
+                getWeeksPregnant();
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
     }
 
     /*GET HOME PAGE ARTICLES*/
@@ -195,14 +325,17 @@ public class Home extends Fragment {
                                     documentSnapshot.getString("display_picture"),
                                     documentSnapshot.getString("userID"),
                                     documentSnapshot.getString("due_date"),
-                                    documentSnapshot.getLong("weeks_pregnant"));
+                                    documentSnapshot.getLong("weeks_pregnant"),
+                                    documentSnapshot.getLong("days_pregnant"));
 
                             myUsers.add(modelClassUsers);
 
                             long weeksPreg = documentSnapshot.getLong("weeks_pregnant");
+                            long daysPreg = documentSnapshot.getLong("days_pregnant");
 
                             weeksPregnant = String.valueOf(weeksPreg);
-                            binding.homeWeekNumber.setText("Week  " + weeksPregnant);
+                            daysPregnant = String.valueOf(daysPreg);
+                            binding.homeWeekNumber.setText("Week  " + weeksPregnant + ", Day " + daysPregnant);
 
                             getWeekInfo(weeksPreg);
 

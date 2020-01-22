@@ -162,7 +162,7 @@ public class ActivityRegister extends AppCompatActivity {
                             final String userID = mAuth.getCurrentUser().getUid();
                             user_name = binding.registerNameLayout.getEditText().getText().toString();
 
-                            ModelClassUsers modelClassUsers = new ModelClassUsers(user_name, email, display_picture, userID, null, 0);
+                            ModelClassUsers modelClassUsers = new ModelClassUsers(user_name, email, display_picture, userID, null, 0, 0);
                             myFirestore.collection("Users").document(userID).set(modelClassUsers).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
@@ -229,7 +229,7 @@ public class ActivityRegister extends AppCompatActivity {
                                             assert downloadUri != null;
                                             display_picture = downloadUri.toString();
 
-                                            ModelClassUsers modelClassUsers = new ModelClassUsers(user_name, email, display_picture, userID, null, 0);
+                                            ModelClassUsers modelClassUsers = new ModelClassUsers(user_name, email, display_picture, userID, null, 0, 0);
                                             myFirestore.collection("Users").document(userID).set(modelClassUsers).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {

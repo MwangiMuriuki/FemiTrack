@@ -48,13 +48,15 @@ public class ActivityPregnancyCalculator extends AppCompatActivity {
     String weeksDifference;
     String daysDifference;
     long weeksPregnant;
+    long calcDaysPreg;
+    long selDaysPreg;
 
     String selectedDueDate, weekDiff, period;
     long week_difference;
     long days_difference;
+    String daysPregnant2;
 
     public static final String[] MONTHS = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-
 
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
@@ -198,17 +200,17 @@ public class ActivityPregnancyCalculator extends AppCompatActivity {
                 long differenceWeeks = difference / (7 * 24 * 60 * 60 * 1000);
                 long differenceDays =  difference / (24 * 60 * 60 * 1000);
                 long daysPregnant = Math.abs(282 - differenceDays);
-                long arith = daysPregnant % 7;
+                calcDaysPreg = daysPregnant % 7;
                 weeksPregnant = Math.abs(40 - differenceWeeks) ;
 
                 weeksDifference = Long.toString(weeksPregnant);
-                daysDifference = Long.toString(arith);
+                daysDifference = Long.toString(calcDaysPreg);
 
 //                String pickedDate = date + " " + MONTHS[month] + " " + year;
 
                 binding.selectedDate2.setText(pickedDate);
                 binding.dueDate.setText(finalDueDate);
-                binding.weeksPregnant.setText("Congratulations, you are on week " + weeksDifference + " and day " + arith + " of your pregnancy!");
+                binding.weeksPregnant.setText("Congratulations, you are on week " + weeksDifference + " and day " + daysDifference + " of your pregnancy!");
 
                 binding.layoutData2.setVisibility(View.VISIBLE);
 
@@ -225,7 +227,7 @@ public class ActivityPregnancyCalculator extends AppCompatActivity {
         String userID = firebaseUser.getUid();
 
         DocumentReference documentReference = firebaseFirestore.collection("Users").document(userID);
-        documentReference.update("weeks_pregnant", weeksPregnant , "due_date", finalDueDate).addOnSuccessListener(new OnSuccessListener<Void>() {
+        documentReference.update("weeks_pregnant", weeksPregnant , "due_date", finalDueDate, "days_pregnant", calcDaysPreg).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
 
@@ -316,8 +318,8 @@ public class ActivityPregnancyCalculator extends AppCompatActivity {
                 long newDiff = 40 - week_difference;
                 weekDiff = Long.toString(week_difference);
                 long daysPregnant = Math.abs(282 - days_difference);
-                long dPreg = daysPregnant % 7;
-                String arith2 = Long.toString(dPreg);
+                selDaysPreg = daysPregnant % 7;
+                daysPregnant2 = Long.toString(selDaysPreg);
 
 //               String suffix = null;
 //
@@ -338,7 +340,7 @@ public class ActivityPregnancyCalculator extends AppCompatActivity {
 
 //               binding.selectedDate.setText(date + "/" + (month + 1) + "/" + year);
                 binding.selectedDate.setText(selectedDueDate);
-                binding.weeksPregnantSelected.setText("Congratulations, you are on week " +  weekDiff + " and day " + arith2 + " of your pregnancy!");
+                binding.weeksPregnantSelected.setText("Congratulations, you are on week " +  weekDiff + " and day " + daysPregnant2 + " of your pregnancy!");
 
                 binding.layoutData1.setVisibility(View.VISIBLE);
             }
@@ -353,7 +355,7 @@ public class ActivityPregnancyCalculator extends AppCompatActivity {
         String userID = firebaseUser.getUid();
 
         DocumentReference documentReference = firebaseFirestore.collection("Users").document(userID);
-        documentReference.update("weeks_pregnant", week_difference , "due_date", selectedDueDate).addOnSuccessListener(new OnSuccessListener<Void>() {
+        documentReference.update("weeks_pregnant", week_difference , "due_date", selectedDueDate, "days_pregnant", selDaysPreg).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
 

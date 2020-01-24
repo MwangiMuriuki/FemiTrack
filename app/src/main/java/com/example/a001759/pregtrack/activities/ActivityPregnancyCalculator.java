@@ -275,7 +275,7 @@ public class ActivityPregnancyCalculator extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                String selectedDueDate = sdf2.format(cal.getTime());
+                selectedDueDate = sdf2.format(cal.getTime());
 
                 cal.add(Calendar.DATE, -282); /*GET FIRST DAY OF LAST PERIOD*/
 

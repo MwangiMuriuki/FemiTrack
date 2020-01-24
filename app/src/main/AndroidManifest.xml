@@ -11,6 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+
         <activity
             android:name=".activities.ActivityArticles"
             android:resizeableActivity="true"
@@ -100,7 +101,13 @@
             android:screenOrientation="portrait"
             android:supportsPictureInPicture="true"
             android:theme="@style/AppTheme.NoActionBar"
-            tools:targetApi="n" />
+            tools:targetApi="n" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activities.Login"
             android:resizeableActivity="true"
@@ -108,17 +115,14 @@
             android:supportsPictureInPicture="true"
             android:theme="@style/AppTheme.fullScreen"
             android:windowSoftInputMode="stateHidden"
-            tools:targetApi="n"></activity>
+            tools:targetApi="n" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".activities.CreateAppointment" />
-        <activity android:name=".activities.ActivityCheckLoginSession">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity android:name=".activities.ActivityCheckLoginSession">
+
         </activity>
     </application>
 

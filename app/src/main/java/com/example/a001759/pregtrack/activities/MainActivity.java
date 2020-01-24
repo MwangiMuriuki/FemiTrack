@@ -1,6 +1,8 @@
 package com.example.a001759.pregtrack.activities;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -96,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        if (firebaseFirestore != null) {
+        if (firebaseFirestore != null && firebaseUser != null) {
 
             String userID = firebaseUser.getUid();
 
@@ -124,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
                             String uname = documentSnapshot.getString("uName");
                             weeksPregnant = String.valueOf(documentSnapshot.getLong("weeks_pregnant"));
                             binding.profileUserName.setText(uname);
+                            binding.logoutTextView.setText("LOGOUT");
 
                         }
                     }
@@ -132,7 +135,8 @@ public class MainActivity extends AppCompatActivity {
 
         }else {
 
-            binding.profileUserName.setText("");
+            binding.profileUserName.setText("FemiTrack");
+            binding.logoutTextView.setText("LOGIN");
         }
 
     }
@@ -147,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
-    private void setupNavDrawerMenu(FirebaseUser firebaseUser) {
+    private void setupNavDrawerMenu(final FirebaseUser firebaseUser) {
 
         List<ModelNavigationDrawer> navDrawerItems = new ArrayList<>();
 
@@ -207,8 +211,48 @@ public class MainActivity extends AppCompatActivity {
                     /*PREGNANCY CALCULATOR*/
 
                     if (modelNavigationDrawer.getItem_name().equals(getString(R.string.preg_calc))){
-                        Intent intent = new Intent(MainActivity.this, modelNavigationDrawer.getActivityName());
-                        startActivity(intent);
+
+                        if (firebaseUser!=null){
+
+                            Intent intent = new Intent(MainActivity.this, modelNavigationDrawer.getActivityName());
+                            startActivity(intent);
+                        }else {
+
+                            final AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                            alertDialog.setTitle("ALERT");
+                            alertDialog.setIcon(R.drawable.ic_alert);
+                            alertDialog.setMessage("Please Login or Register to proceed");
+                            alertDialog.setCanceledOnTouchOutside(false);
+                            alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Register", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    Intent register = new Intent(MainActivity.this , ActivityRegister.class);
+                                    startActivity(register);
+
+                                }
+                            });
+
+                            alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Login", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    Intent login = new Intent(MainActivity.this , Login.class);
+                                    startActivity(login);
+
+                                }
+                            });
+
+                            alertDialog.setButton(DialogInterface.BUTTON_NEUTRAL, "Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    alertDialog.dismiss();
+                                }
+                            });
+
+                            alertDialog.show();
+                        }
+
                     }
 
                     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

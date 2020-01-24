@@ -93,23 +93,26 @@ public class Home extends Fragment {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
 
-        myList = new ArrayList<>();
-
         mAuth = FirebaseAuth.getInstance();
         firebaseUser = mAuth.getCurrentUser();
 
+        /*CHECK IF USER IS LOGGED IN AND DISPLAY RELEVEANT INFORMATION*/
+        if (firebaseUser != null){
+            binding.pBar1.setVisibility(View.VISIBLE);
+            getDayOfWeek();
+
+        }else{
+            binding.pBar1.setVisibility(View.GONE);
+        }
+
         firebaseFirestore = FirebaseFirestore.getInstance();
-        recyclerView = binding.homeArticlesRV;
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-
+        myList = new ArrayList<>();
+        binding.homeArticlesRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         adapter = new HomeTipsAdapter(myList, getContext(), firebaseFirestore);
-
-        recyclerView.setAdapter(adapter);
-
-        getDayOfWeek();
-
+        binding.homeArticlesRV.setAdapter(adapter);
         getHomeArticles();
+
 
         /*TO ARTICLES PAGE*/
         binding.layoutReadMore.setOnClickListener(new View.OnClickListener() {
@@ -192,7 +195,8 @@ public class Home extends Fragment {
                             daysPregnant = String.valueOf(daysPreg);
 
                             String due_date = documentSnapshot.getString("due_date");
-                            String today = mDay + "-" + (mMonth + 1) + "-" + mYear;
+                            String today = mDay + "-" + mMonth + "-" + mYear;
+//                            String today = mDay + "-" + (mMonth + 1) + "-" + mYear;
 
                             Date dd= new Date(); /*due date*/
                             Date cd = new Date(); /*current date*/

@@ -11,6 +11,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -29,6 +30,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
+
+import java.util.Objects;
 
 import dmax.dialog.SpotsDialog;
 
@@ -94,32 +97,53 @@ public class ActivityRegister extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                userName = binding.registerNameLayout.getEditText().getText().toString();
-                email = binding.registerEmailLayout.getEditText().getText().toString();
-                password = binding.registerPasswordLayout.getEditText().toString();
+                userName = Objects.requireNonNull(binding.registerNameLayout.getEditText()).getText().toString();
+                email = Objects.requireNonNull(binding.registerEmailLayout.getEditText()).getText().toString();
+                password = Objects.requireNonNull(binding.registerPasswordLayout.getEditText()).getText().toString();
 
-                if (userName.isEmpty()){
+                boolean cancel = false;
+                View focusView = null;
 
-                    Toast.makeText(ActivityRegister.this,  " Please enter your name ", Toast.LENGTH_LONG).show();
+                binding.registerNameEditText.setError(null);
+                binding.registerEmailEditText.setError(null);
+                binding.registerPasswordEditText.setError(null);
 
-                }else if (email.isEmpty()){
+                if (TextUtils.isEmpty(userName)){
 
-                    Toast.makeText(ActivityRegister.this,  " Please enter an Email Address ", Toast.LENGTH_LONG).show();
+                    binding.registerNameEditText.setError("Please enter your Full Name");
+                    focusView = binding.registerNameEditText;
+                    cancel = true;
 
-                }else if (password.isEmpty()){
+                }else if (TextUtils.isEmpty(email)){
 
-                    Toast.makeText(ActivityRegister.this,  " Please Enter a Password ", Toast.LENGTH_LONG).show();
+                    binding.registerEmailEditText.setError("Please enter your Email Address");
+                    focusView = binding.registerEmailEditText;
+                    cancel = true;
 
-                } if (!isConnected){
+                }else if (TextUtils.isEmpty(password)){
 
-                    Toast.makeText(getApplicationContext(), "Please check your internet connection and try again.", Toast.LENGTH_LONG).show();
+                    binding.registerPasswordEditText.setError("Please enter a Password");
+                    focusView = binding.registerPasswordEditText;
+                    cancel = true;
 
-                }else{
+                }
+                if (cancel){
 
-                    registerDialog.setCancelable(false);
-                    registerDialog.show();
+                    focusView.requestFocus();
+                }
+                else{
+
+                    if (!isConnected){
+
+                        Toast.makeText(getApplicationContext(), "Please check your internet connection and try again.", Toast.LENGTH_LONG).show();
+
+                    }else {
+
+                        registerDialog.setCancelable(false);
+                        registerDialog.show();
 //                    registerNewUser(email, password);
-                    mthdregisterUser(email,password);
+                        mthdregisterUser(email,password);
+                    }
                 }
             }
         });

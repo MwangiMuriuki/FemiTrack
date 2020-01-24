@@ -75,9 +75,7 @@ public class Login extends Activity {
                     binding.loginEmail.setError("Please enter your Email");
                     focusView = binding.loginEmail;
                     cancel = true;
-
                 }
-
                 else if (TextUtils.isEmpty(login_password)){
 
                     binding.loginPassword.setError("Please enter your Password");
@@ -85,7 +83,8 @@ public class Login extends Activity {
                     cancel = true;
 
 
-                } else if (!TextUtils.isEmpty(login_email) && !isEmailValid(login_email)){
+                }
+                else if (!TextUtils.isEmpty(login_email) && !isEmailValid(login_email)){
 
                     binding.loginEmail.setError("Please enter a valid Email");
                     focusView = binding.loginEmail;
@@ -105,13 +104,23 @@ public class Login extends Activity {
 
                     Toast.makeText(getApplicationContext(), "Please connect to the internet and try again.", Toast.LENGTH_LONG).show();
 
-                }else {
+                }
+                else {
 
                     alertDialog.setCancelable(false);
                     alertDialog.show();
                     signInUser(login_email, login_password);
 
                 }
+            }
+        });
+
+        binding.skip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplication(), MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 

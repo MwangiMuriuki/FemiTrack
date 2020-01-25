@@ -29,9 +29,13 @@ import com.example.a001759.pregtrack.activities.ActivityMothersDiet;
 import com.example.a001759.pregtrack.activities.ActivityPregnancyCalculator;
 import com.example.a001759.pregtrack.activities.MainActivity;
 import com.example.a001759.pregtrack.activities.PregnancyInfo;
+import com.example.a001759.pregtrack.adapters.AdapterMerchandise;
+import com.example.a001759.pregtrack.adapters.AdapterMothersMerchandise;
 import com.example.a001759.pregtrack.adapters.HomeTipsAdapter;
 import com.example.a001759.pregtrack.databinding.FragmentHomeBinding;
 import com.example.a001759.pregtrack.models.HomeTipsModelClass;
+import com.example.a001759.pregtrack.models.ModelClassMerchandise;
+import com.example.a001759.pregtrack.models.ModelClassMomMerch;
 import com.example.a001759.pregtrack.models.ModelClassUsers;
 import com.example.a001759.pregtrack.models.ModelClassWeeklyCalendar;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -63,12 +67,16 @@ public class Home extends Fragment {
     static RecyclerView recyclerView;
     FirebaseFirestore firebaseFirestore;
     HomeTipsAdapter adapter;
+    AdapterMerchandise adapterMerchandise;
+    AdapterMothersMerchandise adapterMothersMerchandise;
 
     private static final String TAG = "Home";
 
     List<HomeTipsModelClass> myList;
     final List<ModelClassUsers> myUsers = new ArrayList<>();
     List<ModelClassWeeklyCalendar> myWeek = new ArrayList<>();
+    List<ModelClassMerchandise> merch = new ArrayList<>();
+    List<ModelClassMomMerch> merhcMom = new ArrayList<>();
 
     String weeksPregnant;
     String daysPregnant;
@@ -113,6 +121,16 @@ public class Home extends Fragment {
         binding.homeArticlesRV.setAdapter(adapter);
         getHomeArticles();
 
+        merch = new ArrayList<>();
+        binding.homeBabProdRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        binding.homeMomProdRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        adapterMerchandise = new AdapterMerchandise(merch, firebaseFirestore, getContext());
+        adapterMothersMerchandise = new AdapterMothersMerchandise(merhcMom, firebaseFirestore, getContext());
+        binding.homeBabProdRV.setAdapter(adapterMerchandise);
+        binding.homeMomProdRV.setAdapter(adapterMothersMerchandise);
+        getBabyProd();
+        getMomProd();
+
 
         /*TO ARTICLES PAGE*/
         binding.layoutReadMore.setOnClickListener(new View.OnClickListener() {
@@ -156,6 +174,62 @@ public class Home extends Fragment {
         });
 
         return binding.getRoot();
+    }
+
+    private void getMomProd() {
+        firebaseFirestore.collection("mothers_merch").limit(10).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()){
+
+                    for (DocumentSnapshot documentSnapshot: task.getResult()){
+
+                        ModelClassMomMerch modelClassMomMerch = new ModelClassMomMerch(
+                                documentSnapshot.getString("image"),
+                                documentSnapshot.getString("label"),
+                                documentSnapshot.getString("price"),
+                                documentSnapshot.getString("shop"));
+
+                        merhcMom.add(modelClassMomMerch);
+                    }
+
+                    adapterMothersMerchandise.notifyDataSetChanged();
+
+                }else {
+
+                    Toast.makeText(getContext(), "Error Getting info", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+    }
+
+    private void getBabyProd() {
+        firebaseFirestore.collection("baby_merch").limit(10).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()){
+
+                    for (DocumentSnapshot documentSnapshot: task.getResult()){
+
+                        ModelClassMerchandise modelClassMerchandise = new ModelClassMerchandise(
+                                documentSnapshot.getString("image"),
+                                documentSnapshot.getString("label"),
+                                documentSnapshot.getString("price"),
+                                documentSnapshot.getString("shop"));
+
+                        merch.add(modelClassMerchandise);
+                    }
+
+                    adapterMerchandise.notifyDataSetChanged();
+
+                }else {
+
+                    Toast.makeText(getContext(), "Error Getting info", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
     }
 
     /*GET DAY OF WEEK FOR EVERY SINGLE DAY*/

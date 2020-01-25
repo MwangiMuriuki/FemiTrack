@@ -371,9 +371,9 @@
                 </RelativeLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/homeMomProdRV"
+                    android:id="@+id/homeBabProdRV"
                     android:layout_width="match_parent"
-                    android:layout_height="165dp"
+                    android:layout_height="200dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
@@ -382,8 +382,7 @@
                     android:scrollbarSize="2dp"
                     android:scrollbarStyle="outsideOverlay"
                     android:fadeScrollbars="false"
-                    android:scrollbarThumbHorizontal="@color/colorAccent"
-                    android:visibility="gone"/>
+                    android:scrollbarThumbHorizontal="@color/colorAccent" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -424,9 +423,9 @@
                 </RelativeLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/homeBabProdRV"
+                    android:id="@+id/homeMomProdRV"
                     android:layout_width="match_parent"
-                    android:layout_height="165dp"
+                    android:layout_height="200dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
@@ -435,8 +434,7 @@
                     android:scrollbarSize="2dp"
                     android:scrollbarStyle="outsideOverlay"
                     android:fadeScrollbars="false"
-                    android:scrollbarThumbHorizontal="@color/colorAccent"
-                    android:visibility="gone"/>
+                    android:scrollbarThumbHorizontal="@color/colorAccent" />
 
             </LinearLayout>
 

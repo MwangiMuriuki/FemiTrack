@@ -121,9 +121,7 @@
             android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".activities.CreateAppointment" />
 
-        <activity android:name=".activities.ActivityCheckLoginSession">
-
-        </activity>
+        <activity android:name=".activities.ActivityCheckLoginSession"/>
     </application>
 
 </manifest>

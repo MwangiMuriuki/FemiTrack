@@ -220,7 +220,7 @@ public class Home extends Fragment {
 
                         merch.add(modelClassMerchandise);
                     }
-
+                    adapterMerchandise.setList(merch);
                     adapterMerchandise.notifyDataSetChanged();
 
                 }else {

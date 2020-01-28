@@ -88,6 +88,11 @@ public class WeeklyCalendarAdapter extends RecyclerView.Adapter<WeeklyCalendarAd
         return newList.size();
     }
 
+    public void filterList(List<ModelClassWeeklyCalendar> filteredWeekList) {
+        newList = filteredWeekList;
+        notifyDataSetChanged();
+    }
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView week_number;
         Uri weekImg;

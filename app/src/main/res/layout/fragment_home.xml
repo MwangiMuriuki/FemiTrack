@@ -107,6 +107,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text="Articles and Tips"
+                        android:fontFamily="@font/signika"
                         android:textAlignment="center"
                         android:textColor="@color/textColorDarker"
                         android:textSize="16sp"
@@ -125,6 +126,7 @@
                             android:layout_height="25dp"
                             android:gravity="center_vertical"
                             android:text="More"
+                            android:fontFamily="@font/signika"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="15sp"
                             android:textStyle="bold"
@@ -171,6 +173,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Nutritional Information:"
+                    android:fontFamily="@font/signika"
                     android:textAlignment="center"
                     android:textColor="@color/textColorDarker"
                     android:textSize="16sp"
@@ -183,7 +186,7 @@
                 <LinearLayout
 
                     android:layout_width="match_parent"
-                    android:layout_height="160dp"
+                    android:layout_height="170dp"
                     android:orientation="horizontal"
                     android:layout_margin="5dp">
 
@@ -209,6 +212,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentBottom="true"
                             android:text="Mother`s diet"
+                            android:fontFamily="@font/signika"
                             android:textColor="@color/colorWhite"
                             android:textSize="20sp"
                             app:layout_constraintTop_toTopOf="parent"
@@ -240,6 +244,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentBottom="true"
                             android:text="Baby`s diet"
+                            android:fontFamily="@font/signika"
                             android:textColor="@color/colorWhite"
                             android:textSize="20sp"
                             app:layout_constraintTop_toTopOf="parent"
@@ -255,6 +260,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Medical Information:"
+                    android:fontFamily="@font/signika"
                     android:textAlignment="center"
                     android:textColor="@color/textColorDarker"
                     android:textSize="16sp"
@@ -263,7 +269,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="160dp"
+                    android:layout_height="170dp"
                     android:orientation="horizontal"
                     android:layout_margin="5dp">
 
@@ -289,6 +295,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentBottom="true"
                             android:text="Mother`s Health"
+                            android:fontFamily="@font/signika"
                             android:textColor="@color/colorWhite"
                             android:textSize="20sp"
                             app:layout_constraintTop_toTopOf="parent"
@@ -320,6 +327,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentBottom="true"
                             android:text="Baby`s Health"
+                            android:fontFamily="@font/signika"
                             android:textColor="@color/colorWhite"
                             android:textSize="20sp"
                             app:layout_constraintTop_toTopOf="parent"
@@ -342,6 +350,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text="Baby Products:"
+                        android:fontFamily="@font/signika"
                         android:textAlignment="center"
                         android:textColor="@color/textColorDarker"
                         android:textSize="16sp"
@@ -360,6 +369,7 @@
                             android:layout_height="25dp"
                             android:gravity="center_vertical"
                             android:text="More"
+                            android:fontFamily="@font/signika"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="15sp"
                             android:textStyle="bold"
@@ -394,6 +404,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text="Mother`s Products:"
+                        android:fontFamily="@font/signika"
                         android:textAlignment="center"
                         android:textColor="@color/textColorDarker"
                         android:textSize="16sp"
@@ -412,6 +423,7 @@
                             android:layout_height="25dp"
                             android:gravity="center_vertical"
                             android:text="More"
+                            android:fontFamily="@font/signika"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="15sp"
                             android:textStyle="bold"

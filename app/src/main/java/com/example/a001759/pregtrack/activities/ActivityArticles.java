@@ -2,12 +2,18 @@ package com.example.a001759.pregtrack.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.MenuItemCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.a001759.pregtrack.R;
@@ -33,6 +39,8 @@ public class ActivityArticles extends AppCompatActivity {
     AdapterOtherArticles adapter;
 
     List<ModelClassOtherArticles> myList;
+
+    SearchView searchView;
 
     ActivityArticlesBinding binding;
     @Override
@@ -79,9 +87,53 @@ public class ActivityArticles extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.tips_and_articles_menu, menu);
+        MenuItem item = menu.findItem(R.id.action_search);
+        searchView = new SearchView(Objects.requireNonNull(((ActivityArticles) Objects.requireNonNull(this)).getSupportActionBar()).getThemedContext());
+        EditText searchPlate = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
+        searchPlate.setHint("Search...");
+        searchPlate.setHintTextColor(ContextCompat.getColor(ActivityArticles.this, R.color.colorWhite));
+        MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
+        MenuItemCompat.setActionView(item, searchView);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == android.R.id.home){
             finish();
+        }
+        if(item.getItemId() == R.id.action_search){
+
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    List<ModelClassOtherArticles> filteredArticleList = new ArrayList<>();
+
+                    for (ModelClassOtherArticles searchList : myList){
+
+                        String searchArticleTitle = searchList.getTitle();
+
+
+                        if (searchArticleTitle.toLowerCase().contains(newText.toLowerCase())){
+
+                            filteredArticleList.add(searchList);
+                        }
+                    }
+
+                    adapter.filterList(filteredArticleList);
+                    return false;
+                }
+            });
+
+
         }
         return super.onOptionsItemSelected(item);
     }

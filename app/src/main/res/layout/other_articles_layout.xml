@@ -40,7 +40,8 @@
             android:maxLines="2"
             android:ellipsize="end"
             android:textSize="15sp"
-            android:textColor="@color/textColorDarker"/>
+            android:textColor="@color/textColorDarker"
+            android:fontFamily="@font/signika"/>
 
     </LinearLayout>
 

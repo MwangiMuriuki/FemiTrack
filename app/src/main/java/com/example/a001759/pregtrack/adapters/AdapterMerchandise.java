@@ -1,12 +1,15 @@
 package com.example.a001759.pregtrack.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,6 +35,10 @@ public class AdapterMerchandise extends RecyclerView.Adapter<AdapterMerchandise.
         this.context = context;
     }
 
+    public void setList(List<ModelClassMerchandise> list) {
+        this.list = list;
+    }
+
     @NonNull
     @Override
     public AdapterMerchandise.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -44,7 +51,7 @@ public class AdapterMerchandise extends RecyclerView.Adapter<AdapterMerchandise.
     @Override
     public void onBindViewHolder(@NonNull AdapterMerchandise.MyViewHolder holder, int position) {
 
-        ModelClassMerchandise modelClassMerchandise = list.get(position);
+        final ModelClassMerchandise modelClassMerchandise = list.get(position);
 
         final Uri imageUrl = Uri.parse(modelClassMerchandise.getImageUrl());
         Glide.with(context).load(imageUrl).into(holder.imageView);
@@ -52,6 +59,16 @@ public class AdapterMerchandise extends RecyclerView.Adapter<AdapterMerchandise.
         holder.tvLabel.setText(modelClassMerchandise.getLabel());
         holder.tvPrice.setText(modelClassMerchandise.getPrice());
         shop = modelClassMerchandise.getShopUrl();
+        price = modelClassMerchandise.getPrice();
+
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(modelClassMerchandise.getShopUrl()));
+                context.startActivity(browserIntent);
+//                Toast.makeText(context, String.valueOf(modelClassMerchandise.getPrice()), Toast.LENGTH_LONG).show();
+            }
+        });
 
     }
 
@@ -65,6 +82,7 @@ public class AdapterMerchandise extends RecyclerView.Adapter<AdapterMerchandise.
         ImageView imageView;
         TextView tvLabel;
         TextView tvPrice;
+        LinearLayout linearLayout;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -72,6 +90,7 @@ public class AdapterMerchandise extends RecyclerView.Adapter<AdapterMerchandise.
             imageView = itemView.findViewById(R.id.itemImage);
             tvLabel = itemView.findViewById(R.id.itemName);
             tvPrice = itemView.findViewById(R.id.itemPrice);
+            linearLayout = itemView.findViewById(R.id.cardLayoutMerch);
         }
     }
 }

@@ -5,6 +5,9 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.MenuItemCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -12,11 +15,16 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.a001759.pregtrack.R;
+import com.example.a001759.pregtrack.activities.MainActivity;
 import com.example.a001759.pregtrack.adapters.WeeklyCalendarAdapter;
 import com.example.a001759.pregtrack.databinding.FragmentWeeklyCalendarBinding;
 import com.example.a001759.pregtrack.models.ModelClassWeeklyCalendar;
@@ -42,11 +50,12 @@ public class WeeklyCalendar extends Fragment {
     FirebaseFirestore firebaseFirestore;
     static GridLayoutManager gridLayoutManager;
 
-    List<weekly_calendar_model_class> list;
     WeeklyCalendarAdapter adapter;
     List<ModelClassWeeklyCalendar> newList;
 
     FragmentWeeklyCalendarBinding binding;
+
+    SearchView searchView;
 
     public WeeklyCalendar() {
         // Required empty public constructor
@@ -111,5 +120,54 @@ public class WeeklyCalendar extends Fragment {
         getActivity().setTitle("Weekly Calendar");
     }
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
 
+        inflater.inflate(R.menu.tips_and_articles_menu, menu);
+        MenuItem item = menu.findItem(R.id.action_search);
+        searchView = new SearchView(Objects.requireNonNull(((MainActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).getThemedContext());
+        EditText searchPlate = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
+        searchPlate.setHint("Search");
+        searchPlate.setHintTextColor(ContextCompat.getColor(getContext(), R.color.colorWhite));
+        MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
+        MenuItemCompat.setActionView(item, searchView);
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if(item.getItemId() == R.id.action_search){
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String s) {
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String s) {
+
+                    List<ModelClassWeeklyCalendar> filteredWeekList = new ArrayList<>();
+
+                    for (ModelClassWeeklyCalendar searchList : newList){
+
+                        String searchWeekNumber = String.valueOf(searchList.getWeek_number());
+
+
+                        if (searchWeekNumber.toLowerCase().contains(s.toLowerCase())){
+
+                            filteredWeekList.add(searchList);
+                        }
+                    }
+
+                    adapter.filterList(filteredWeekList);
+
+                    return true;
+                }
+            });
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

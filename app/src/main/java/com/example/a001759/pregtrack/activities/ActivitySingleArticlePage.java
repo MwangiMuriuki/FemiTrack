@@ -3,8 +3,11 @@ package com.example.a001759.pregtrack.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.MenuItem;
@@ -27,9 +30,9 @@ public class ActivitySingleArticlePage extends AppCompatActivity {
         binding.toolbarLayout.setTitle("Back");
         binding.toolbarLayout.setExpandedTitleColor(Color.parseColor("#00FFFFFF")); /*Hide Title when the collapsing toolbar is expanded*/
 
-        String article_image = getIntent().getStringExtra("image");
-        String article_title = getIntent().getStringExtra("title");
-        String article_info = getIntent().getStringExtra("info");
+        final String article_image = getIntent().getStringExtra("image");
+        final String article_title = getIntent().getStringExtra("title");
+        final String article_info = getIntent().getStringExtra("info");
 
         Glide.with(ActivitySingleArticlePage.this).load(article_image).into(binding.articleImage);
         binding.include.articleTitleTV.setText(article_title);
@@ -41,6 +44,15 @@ public class ActivitySingleArticlePage extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Share with...", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+
+                Uri imgUri = Uri.parse(MediaStore.Images.Media.EXTERNAL_CONTENT_URI + "/" + article_image);
+
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("*/*");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, article_title);
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, Html.fromHtml(article_info));
+                sharingIntent.putExtra(Intent.EXTRA_STREAM, imgUri);
+                startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.share_using)));
             }
         });
 

@@ -1,12 +1,15 @@
 package com.example.a001759.pregtrack.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -44,7 +47,7 @@ public class AdapterMothersMerchandise extends RecyclerView.Adapter<AdapterMothe
     @Override
     public void onBindViewHolder(@NonNull AdapterMothersMerchandise.MyViewHolder holder, int position) {
 
-        ModelClassMomMerch modelClassMerchandise = list.get(position);
+        final ModelClassMomMerch modelClassMerchandise = list.get(position);
 
         final Uri imageUrl = Uri.parse(modelClassMerchandise.getImageUrl());
         Glide.with(context).load(imageUrl).into(holder.imageView);
@@ -52,6 +55,16 @@ public class AdapterMothersMerchandise extends RecyclerView.Adapter<AdapterMothe
         holder.tvLabel.setText(modelClassMerchandise.getLabel());
         holder.tvPrice.setText(modelClassMerchandise.getPrice());
         shop = modelClassMerchandise.getShopUrl();
+        price = modelClassMerchandise.getPrice();
+
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(modelClassMerchandise.getShopUrl()));
+                context.startActivity(browserIntent);
+
+            }
+        });
 
     }
 
@@ -64,6 +77,7 @@ public class AdapterMothersMerchandise extends RecyclerView.Adapter<AdapterMothe
         ImageView imageView;
         TextView tvLabel;
         TextView tvPrice;
+        LinearLayout linearLayout;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -71,6 +85,7 @@ public class AdapterMothersMerchandise extends RecyclerView.Adapter<AdapterMothe
             imageView = itemView.findViewById(R.id.itemImage);
             tvLabel = itemView.findViewById(R.id.itemName);
             tvPrice = itemView.findViewById(R.id.itemPrice);
+            linearLayout = itemView.findViewById(R.id.cardLayoutMerch);
         }
     }
 }

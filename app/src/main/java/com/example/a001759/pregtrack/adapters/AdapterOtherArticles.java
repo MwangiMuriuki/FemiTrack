@@ -79,6 +79,11 @@ public class AdapterOtherArticles extends RecyclerView.Adapter<AdapterOtherArtic
         return list.size();
     }
 
+    public void filterList(List<ModelClassOtherArticles> filteredArticleList) {
+        list = filteredArticleList;
+        notifyDataSetChanged();
+    }
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         CircleImageView imageView;

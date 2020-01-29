@@ -3,6 +3,7 @@ package com.example.a001759.pregtrack.activities;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -17,6 +18,8 @@ import com.bumptech.glide.Glide;
 import com.example.a001759.pregtrack.R;
 import com.example.a001759.pregtrack.databinding.ActivitySingleArticlePageBinding;
 import com.google.android.material.snackbar.Snackbar;
+
+import java.io.File;
 
 public class ActivitySingleArticlePage extends AppCompatActivity {
 
@@ -40,18 +43,25 @@ public class ActivitySingleArticlePage extends AppCompatActivity {
         binding.include.articleInfoTV.setMovementMethod(LinkMovementMethod.getInstance());
 
         binding.shareArticle.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("IntentReset")
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Share with...", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
 
                 Uri imgUri = Uri.parse(MediaStore.Images.Media.EXTERNAL_CONTENT_URI + "/" + article_image);
+                Uri pictureUri = Uri.parse(article_image);
 
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-                sharingIntent.setType("*/*");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, article_title);
-                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, Html.fromHtml(article_info));
-                sharingIntent.putExtra(Intent.EXTRA_STREAM, imgUri);
+
+
+//                shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(photoFile));
+
+
+//                sharingIntent.putExtra(Intent.EXTRA_TITLE, article_title);
+//                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, Html.fromHtml(article_info));
+                sharingIntent.putExtra(Intent.EXTRA_STREAM, article_image);
+                sharingIntent.setType("image/*");
+                sharingIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
                 startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.share_using)));
             }
         });

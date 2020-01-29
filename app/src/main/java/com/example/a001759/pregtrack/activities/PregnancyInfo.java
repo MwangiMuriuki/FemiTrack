@@ -1,5 +1,6 @@
 package com.example.a001759.pregtrack.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
@@ -32,7 +33,7 @@ public class PregnancyInfo extends AppCompatActivity {
         String image_url = getIntent().getStringExtra("image_url");
         String week_number = getIntent().getStringExtra("week_number");
         String symptoms = getIntent().getStringExtra("symptoms");
-        String source = getIntent().getStringExtra("source");
+        final String source = getIntent().getStringExtra("source");
         String intro = getIntent().getStringExtra("intro");
 
         binding.toolbarLayout.setTitle("Week " + week_number);
@@ -48,6 +49,13 @@ public class PregnancyInfo extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Share with...", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT,Html.fromHtml(source));
+                sharingIntent.setType("text/plain");
+                sharingIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.share_using)));
+
             }
         });
 

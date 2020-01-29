@@ -11,7 +11,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
+        <activity
+            android:name=".activities.ActivityMothersProducts"
+            android:resizeableActivity="true"
+            android:screenOrientation="portrait"
+            android:supportsPictureInPicture="true"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden"
+            tools:targetApi="n"/>
+        <activity
+            android:name=".activities.ActivityBabyProducts"
+            android:resizeableActivity="true"
+            android:screenOrientation="portrait"
+            android:supportsPictureInPicture="true"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden"
+            tools:targetApi="n"/>
         <activity
             android:name=".activities.ActivityArticles"
             android:resizeableActivity="true"
@@ -20,7 +35,6 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden"
             tools:targetApi="n" />
-
         <activity
             android:name=".activities.ActivityPregnancyCalculator"
             android:resizeableActivity="true"
@@ -29,7 +43,6 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden"
             tools:targetApi="n" />
-
         <activity
             android:name=".activities.ActivitySingleArticlePage"
             android:resizeableActivity="true"
@@ -101,7 +114,7 @@
             android:screenOrientation="portrait"
             android:supportsPictureInPicture="true"
             android:theme="@style/AppTheme.NoActionBar"
-            tools:targetApi="n" >
+            tools:targetApi="n">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -120,8 +133,7 @@
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".activities.CreateAppointment" />
-
-        <activity android:name=".activities.ActivityCheckLoginSession"/>
+        <activity android:name=".activities.ActivityCheckLoginSession" />
     </application>
 
 </manifest>

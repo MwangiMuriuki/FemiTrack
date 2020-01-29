@@ -24,13 +24,13 @@ import com.example.a001759.pregtrack.R;
 import com.example.a001759.pregtrack.activities.ActivityArticles;
 import com.example.a001759.pregtrack.activities.ActivityBabyDiet;
 import com.example.a001759.pregtrack.activities.ActivityBabyHealth;
+import com.example.a001759.pregtrack.activities.ActivityBabyProducts;
 import com.example.a001759.pregtrack.activities.ActivityMotherHealth;
 import com.example.a001759.pregtrack.activities.ActivityMothersDiet;
-import com.example.a001759.pregtrack.activities.ActivityPregnancyCalculator;
-import com.example.a001759.pregtrack.activities.MainActivity;
+import com.example.a001759.pregtrack.activities.ActivityMothersProducts;
 import com.example.a001759.pregtrack.activities.PregnancyInfo;
-import com.example.a001759.pregtrack.adapters.AdapterMerchandise;
-import com.example.a001759.pregtrack.adapters.AdapterMothersMerchandise;
+import com.example.a001759.pregtrack.adapters.AdapterBabyMerchandise_Home;
+import com.example.a001759.pregtrack.adapters.AdapterMothersMerchandise_Home;
 import com.example.a001759.pregtrack.adapters.HomeTipsAdapter;
 import com.example.a001759.pregtrack.databinding.FragmentHomeBinding;
 import com.example.a001759.pregtrack.models.HomeTipsModelClass;
@@ -67,8 +67,8 @@ public class Home extends Fragment {
     static RecyclerView recyclerView;
     FirebaseFirestore firebaseFirestore;
     HomeTipsAdapter adapter;
-    AdapterMerchandise adapterMerchandise;
-    AdapterMothersMerchandise adapterMothersMerchandise;
+    AdapterBabyMerchandise_Home adapterBabyMerchandiseHome;
+    AdapterMothersMerchandise_Home adapterMothersMerchandiseHome;
 
     private static final String TAG = "Home";
 
@@ -124,10 +124,10 @@ public class Home extends Fragment {
         merch = new ArrayList<>();
         binding.homeBabProdRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.homeMomProdRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        adapterMerchandise = new AdapterMerchandise(merch, firebaseFirestore, getContext());
-        adapterMothersMerchandise = new AdapterMothersMerchandise(merhcMom, firebaseFirestore, getContext());
-        binding.homeBabProdRV.setAdapter(adapterMerchandise);
-        binding.homeMomProdRV.setAdapter(adapterMothersMerchandise);
+        adapterBabyMerchandiseHome = new AdapterBabyMerchandise_Home(merch, firebaseFirestore, getContext());
+        adapterMothersMerchandiseHome = new AdapterMothersMerchandise_Home(merhcMom, firebaseFirestore, getContext());
+        binding.homeBabProdRV.setAdapter(adapterBabyMerchandiseHome);
+        binding.homeMomProdRV.setAdapter(adapterMothersMerchandiseHome);
         getBabyProd();
         getMomProd();
 
@@ -137,6 +137,24 @@ public class Home extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), ActivityArticles.class);
+                startActivity(intent);
+            }
+        });
+
+        /*TO BABY MERCHANDISE PAGE*/
+        binding.babProdReadMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), ActivityBabyProducts.class);
+                startActivity(intent);
+            }
+        });
+
+        /*TO MOTHER`S MERCHANDISE PAGE*/
+        binding.momProdReadMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), ActivityMothersProducts.class);
                 startActivity(intent);
             }
         });
@@ -193,7 +211,7 @@ public class Home extends Fragment {
                         merhcMom.add(modelClassMomMerch);
                     }
 
-                    adapterMothersMerchandise.notifyDataSetChanged();
+                    adapterMothersMerchandiseHome.notifyDataSetChanged();
 
                 }else {
 
@@ -220,8 +238,8 @@ public class Home extends Fragment {
 
                         merch.add(modelClassMerchandise);
                     }
-                    adapterMerchandise.setList(merch);
-                    adapterMerchandise.notifyDataSetChanged();
+                    adapterBabyMerchandiseHome.setList(merch);
+                    adapterBabyMerchandiseHome.notifyDataSetChanged();
 
                 }else {
 

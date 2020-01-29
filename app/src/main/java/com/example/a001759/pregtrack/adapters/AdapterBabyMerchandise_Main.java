@@ -9,28 +9,27 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.a001759.pregtrack.R;
-import com.example.a001759.pregtrack.models.ModelClassMomMerch;
+import com.example.a001759.pregtrack.models.ModelClassMerchandise;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
-public class AdapterMothersMerchandise extends RecyclerView.Adapter<AdapterMothersMerchandise.MyViewHolder> {
+public class AdapterBabyMerchandise_Main extends RecyclerView.Adapter<AdapterBabyMerchandise_Main.MyViewHolder> {
 
-
-    List<ModelClassMomMerch> list;
+    List<ModelClassMerchandise> list;
     FirebaseFirestore firebaseFirestore;
     Context context;
 
     String image, label, price, shop;
 
-    public AdapterMothersMerchandise(List<ModelClassMomMerch> list, FirebaseFirestore firebaseFirestore, Context context) {
+
+    public AdapterBabyMerchandise_Main(List<ModelClassMerchandise> list, FirebaseFirestore firebaseFirestore, Context context) {
         this.list = list;
         this.firebaseFirestore = firebaseFirestore;
         this.context = context;
@@ -38,16 +37,16 @@ public class AdapterMothersMerchandise extends RecyclerView.Adapter<AdapterMothe
 
     @NonNull
     @Override
-    public AdapterMothersMerchandise.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.merchandise_single_item_layout, parent, false);
+    public AdapterBabyMerchandise_Main.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.merchandise_layout, parent, false);
 
-        return new MyViewHolder(view);
+        return new AdapterBabyMerchandise_Main.MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdapterMothersMerchandise.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AdapterBabyMerchandise_Main.MyViewHolder holder, int position) {
 
-        final ModelClassMomMerch modelClassMerchandise = list.get(position);
+        final ModelClassMerchandise modelClassMerchandise = list.get(position);
 
         final Uri imageUrl = Uri.parse(modelClassMerchandise.getImageUrl());
         Glide.with(context).load(imageUrl).into(holder.imageView);
@@ -61,8 +60,8 @@ public class AdapterMothersMerchandise extends RecyclerView.Adapter<AdapterMothe
             @Override
             public void onClick(View view) {
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(modelClassMerchandise.getShopUrl()));
+                browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(browserIntent);
-
             }
         });
 
@@ -73,7 +72,14 @@ public class AdapterMothersMerchandise extends RecyclerView.Adapter<AdapterMothe
         return list.size();
     }
 
+    public void filterList(List<ModelClassMerchandise> filteredProductList) {
+
+        list = filteredProductList;
+        notifyDataSetChanged();
+    }
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
+
         ImageView imageView;
         TextView tvLabel;
         TextView tvPrice;

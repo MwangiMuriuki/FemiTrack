@@ -103,17 +103,17 @@ public class Home extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         firebaseUser = mAuth.getCurrentUser();
+        firebaseFirestore = FirebaseFirestore.getInstance();
 
         /*CHECK IF USER IS LOGGED IN AND DISPLAY RELEVEANT INFORMATION*/
         if (firebaseUser != null){
             binding.pBar1.setVisibility(View.VISIBLE);
-            getDayOfWeek();
+            getDayOfWeek(firebaseFirestore);
 
         }else{
             binding.pBar1.setVisibility(View.GONE);
         }
 
-        firebaseFirestore = FirebaseFirestore.getInstance();
 
         myList = new ArrayList<>();
         binding.homeArticlesRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -251,7 +251,7 @@ public class Home extends Fragment {
     }
 
     /*GET DAY OF WEEK FOR EVERY SINGLE DAY*/
-    private void getDayOfWeek() {
+    private void getDayOfWeek(FirebaseFirestore firebaseFirestore) {
         final Calendar cal = Calendar.getInstance();
         final int mYear = cal.get(Calendar.YEAR); // get current year
         final int mMonth = cal.get(Calendar.MONTH); // get current month
@@ -342,6 +342,8 @@ public class Home extends Fragment {
             });
 
         }else {
+
+            Toast.makeText(getContext(), "Error Fetching logged in user", Toast.LENGTH_LONG).show();
 
         }
 
